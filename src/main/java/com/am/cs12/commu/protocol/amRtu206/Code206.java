@@ -120,6 +120,8 @@ public class Code206 {
 	public static final String cd_70 = "70" ; //查询净积流量
 	
 	public static final String cd_F1 = "F1";//智能门操作命令
+	public static final String cd_F2 = "F2";//智能门操作命令
+	public static final String cd_F3 = "F3";//智能门操作命令
 	public static final String cd_F4 = "F4";//智能门状态报
 	
 	

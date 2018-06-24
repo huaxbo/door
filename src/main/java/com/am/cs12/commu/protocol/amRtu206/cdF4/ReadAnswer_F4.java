@@ -41,6 +41,17 @@ public class ReadAnswer_F4 extends ProtocolAbstract{
 		Data206_cdF4 dd = new Data206_cdF4() ;
 		d.setSubData(dd) ;
 		
+		parse(cp,b,dd);
+		
+		return d;
+	}
+	
+	/**
+	 * @param cp
+	 * @param b
+	 * @param dd
+	 */
+	public void parse(ControlProtocol cp, byte[] b,Data206_cdF4 dd){
 		int n = Constant.Site_Data ;
 		if(cp.hasDIVS){
 			n += 1 ;
@@ -59,7 +70,5 @@ public class ReadAnswer_F4 extends ProtocolAbstract{
 		dd.setLockOriginal(b[n++] & 0xFF);
 		dd.setLockWarn(b[n++] & 0xFF);
 		dd.setLockPower(b[n] & 0xFF);
-		
-		return d;
 	}
 }

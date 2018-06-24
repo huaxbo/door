@@ -8,6 +8,8 @@ import com.am.cs12.commu.protocol.amRtu206.cd10_50.ReadAnswer_50;
 import com.am.cs12.commu.protocol.amRtu206.cd11_51.ReadAnswer_51;
 import com.am.cs12.commu.protocol.amRtu206.cd12_52.ReadAnswer_52;
 import com.am.cs12.commu.protocol.amRtu206.cdF1.ReadAnswer_F1;
+import com.am.cs12.commu.protocol.amRtu206.cdF2.ReadAnswer_F2;
+import com.am.cs12.commu.protocol.amRtu206.cdF3.ReadAnswer_F3;
 import com.am.cs12.commu.protocol.amRtu206.cdF4.ReadAnswer_F4;
 import com.am.cs12.commu.protocol.amRtu206.common.CodeProtocol;
 import com.am.cs12.commu.protocol.amRtu206.common.ControlProtocol;
@@ -120,6 +122,34 @@ public class DataProtocol206 {
      */
 	public Data parseRead_F1(String rtuId, byte[] b, ControlProtocol cp, String dataCode) throws Exception{
 		ReadAnswer_F1 rp = new ReadAnswer_F1() ;
+		Data d = rp.parseData(rtuId, b, cp, dataCode) ;
+		return d ;
+	}
+	/**
+     * 门操作
+     * @param rtuId
+     * @param b
+     * @param cp
+     * @param dataCode
+     * @return
+     * @throws Exception
+     */
+	public Data parseRead_F2(String rtuId, byte[] b, ControlProtocol cp, String dataCode) throws Exception{
+		ReadAnswer_F2 rp = new ReadAnswer_F2() ;
+		Data d = rp.parseData(rtuId, b, cp, dataCode) ;
+		return d ;
+	}
+	/**
+     * 门操作
+     * @param rtuId
+     * @param b
+     * @param cp
+     * @param dataCode
+     * @return
+     * @throws Exception
+     */
+	public Data parseRead_F3(String rtuId, byte[] b, ControlProtocol cp, String dataCode) throws Exception{
+		ReadAnswer_F3 rp = new ReadAnswer_F3() ;
 		Data d = rp.parseData(rtuId, b, cp, dataCode) ;
 		return d ;
 	}

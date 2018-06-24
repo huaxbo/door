@@ -62,7 +62,7 @@ public class DoorController {
      * @return
      */
     @RequestMapping("/" + act_prefix + "/state" + MvcCfg.action_suffix)
-    public DoorVO state(String dtuId,Integer flag){
+    public DoorVO state(String dtuId,String code,Integer flag){
     	CmdRlt cmder = CmdRlt.singleInstance();
     	String cmdId = cmder.generateCmdId();//command id
     	DoorVO vo = new DoorVO();
@@ -77,7 +77,7 @@ public class DoorController {
     	//命令发送
     	HashMap<String,Object> params = new HashMap<String,Object>(0);
     	params.put(Param206_cdF1.KEY, flag);
-    	CmdSender.sendCmd(dtuId, cmdId, Code206.cd_F1, params);
+    	CmdSender.sendCmd(dtuId, cmdId, code, params);
     	//命令结果获取
     	Object rlt = cmder.getCmdRltWait(cmdId, null);
     	if(rlt == null){

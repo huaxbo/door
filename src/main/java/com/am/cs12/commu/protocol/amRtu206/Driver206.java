@@ -171,6 +171,14 @@ public class Driver206 extends DriverMeter {
 				// 门操作
 				this.centerData = dp.parseRead_F1(rtuId, b, cp, this.dataCode);
 				action = action.add(action, Action.commandResult);
+			} else if (this.dataCode.equalsIgnoreCase(Code206.cd_F2)) {
+				// 门操作
+				this.centerData = dp.parseRead_F2(rtuId, b, cp, this.dataCode);
+				action = action.add(action, Action.commandResult);
+			}else if (this.dataCode.equalsIgnoreCase(Code206.cd_F3)) {
+				// 门操作
+				this.centerData = dp.parseRead_F3(rtuId, b, cp, this.dataCode);
+				action = action.add(action, Action.commandResult);
 			} else if (this.dataCode.equalsIgnoreCase(Code206.cd_F4)) {
 				// 门状态
 				this.centerData = dp.parseRead_F4(rtuId, b, cp, this.dataCode);
@@ -256,7 +264,15 @@ public class Driver206 extends DriverMeter {
 				// 门控制
 				this.remoteData = cp.write_F1(this.id, params, key_password);
 				action = Action.remoteCommand;
-			} else {
+			} else if (this.commandCode.equalsIgnoreCase(Code206.cd_F2)) {
+				// 门控制
+				this.remoteData = cp.write_F2(this.id, params, key_password);
+				action = Action.remoteCommand;
+			}  else if (this.commandCode.equalsIgnoreCase(Code206.cd_F3)) {
+				// 门控制
+				this.remoteData = cp.write_F3(this.id, params, key_password);
+				action = Action.remoteCommand;
+			}  else {
 				this.error = "出错，命令中功能码(" + this.commandCode + ")不能被识别！";
 				log.error(error);
 				action = Action.unknown;

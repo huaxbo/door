@@ -12,6 +12,8 @@ import com.am.cs12.commu.protocol.amRtu206.cd11_51.Write_11;
 import com.am.cs12.commu.protocol.amRtu206.cd12_52.Read_52;
 import com.am.cs12.commu.protocol.amRtu206.cd12_52.Write_12;
 import com.am.cs12.commu.protocol.amRtu206.cdF1.Write_F1;
+import com.am.cs12.commu.protocol.amRtu206.cdF2.Write_F2;
+import com.am.cs12.commu.protocol.amRtu206.cdF3.Write_F3;
 
 public class CommandProtocol206 {
 
@@ -116,5 +118,27 @@ public class CommandProtocol206 {
 	 */
 	public byte[] write_F1(String rtuId, HashMap<String , Object> params, Integer[] keyPassword) throws Exception{
 		return new Write_F1().remoteData(rtuId , params, keyPassword) ;
+	}
+	/**
+	 * 门控制
+	 * @param rtuId
+	 * @param params
+	 * @param keyPassword
+	 * @return
+	 * @throws Exception
+	 */
+	public byte[] write_F2(String rtuId, HashMap<String , Object> params, Integer[] keyPassword) throws Exception{
+		return new Write_F2().remoteData(rtuId , params, keyPassword) ;
+	}
+	/**
+	 * 门控制
+	 * @param rtuId
+	 * @param params
+	 * @param keyPassword
+	 * @return
+	 * @throws Exception
+	 */
+	public byte[] write_F3(String rtuId, HashMap<String , Object> params, Integer[] keyPassword) throws Exception{
+		return new Write_F3().remoteData(rtuId , params, keyPassword) ;
 	}
 }

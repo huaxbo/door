@@ -5,9 +5,9 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 import com.am.cs12.commu.protocol.Data;
+import com.am.cs12.commu.protocol.amRtu206.cdF4.ReadAnswer_F4;
 import com.am.cs12.commu.protocol.amRtu206.common.ControlProtocol;
 import com.am.cs12.commu.protocol.amRtu206.common.ProtocolAbstract;
-import com.am.cs12.commu.protocol.amRtu206.util.Constant;
 
 public class ReadAnswer_F1 extends ProtocolAbstract{
 
@@ -38,13 +38,7 @@ public class ReadAnswer_F1 extends ProtocolAbstract{
 		Data206_cdF1 dd = new Data206_cdF1() ;
 		d.setSubData(dd) ;
 		
-		int n = Constant.Site_Data ;
-		if(cp.hasDIVS){
-			n += 1 ;
-		}
-		
-		// 分析数据域
-		dd.setState(String.valueOf(b[n++]));
+		new ReadAnswer_F4().parse(cp, b, dd);
 		
 		return d;
 	}

@@ -44,10 +44,11 @@ public class RemoteIoHandler extends IoHandlerAdapter {
      * 接收到数据后，回调的方法，进行数据处理
      */
     public void messageReceived(IoSession session, Object message) throws Exception {
+
     	byte[] data = (byte[])message ;
+    	
     	DespatchForGprs d = new DespatchForGprs() ;
     	d.receiveData(session, data) ;
-		
   }
 
 
