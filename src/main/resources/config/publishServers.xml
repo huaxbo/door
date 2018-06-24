@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  各配置元素名称不能重名，否则将覆盖;
+  各配置元素名称已经与程序关联，不能修改！
+ -->
+<localServers>
+	<!-- 
+          以下配置本地服务，本地服务是分发数据的，数据包括召测数据和主动上报数据
+    -->
+	<!-- 数据库服务，存储命令结果-->
+    <server id="dbServer1" enable="true" driverName="com.am.cs12.commu.publish.db.DbServer" configFilePath="/config/publishServer_db1.xml">
+	<!-- 
+	所接受的数据功能码，如果数据功能码不在此范围内，数据将不接受 
+	如果配置一个值"all"，将全部接收数据
+	-->
+ 	all
+    </server>
+	<!-- 数据库服务，存取主动上报数据
+    <server id="dbServer2" enable="true" driverName="com.am.cs12.commu.publish.db.DbServer" configFilePath="/config/publishServer_db2.xml">
+ 	0004,
+	0006,
+	0008,
+	0009,
+    </server>-->
+	<!-- UDP服务，测试
+    <server id="udp" enable="false" driverName="com.am.cs12.commu.publish.udp.UdpServer" configFilePath="/config/publishServer_udp.xml">
+    all
+    </server>-->
+</localServers>

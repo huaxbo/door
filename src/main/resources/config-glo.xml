@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config_glo>
+	<!-- 系统标题 -->
+	<sys_title>奥特美克运营管理平台</sys_title>
+	<!-- 分页栏：最大页数 -->
+	<sys_maxPages>10</sys_maxPages>
+	<!-- 分页栏：每次翻页数 -->
+	<sys_perTurn>5</sys_perTurn>
+	<!-- 分页：每页记录数 -->
+	<sys_perPage>10</sys_perPage>		
+		
+</config_glo>

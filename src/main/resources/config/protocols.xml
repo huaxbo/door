@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<protocols>
+
+	<RTUs>
+		<RTU>
+			<!-- 协议名称RTU_206 不可更改(程序中用到这个名称)，不可重复 (是老通信服务器的amGPRS2.0精简版，只有上线、心跳、及传输RTU数据三个协议) -->
+			<name>RTU_206</name>
+			<!-- 协议驱动类 -->
+			<driverName>com.am.cs12.commu.protocol.amRtu206.Driver206</driverName>
+			<!-- 上线数据匹配正则表达式 RTUIdType属性指在上线数据字节数组中，RTUID 类型，分别有字符串(ASCII)、整数(INT)、BCD编码、427协议编码 
+				四种类型 from end属性分别指在上线数据节数组中RTUID 起始位(包含)与终止位(包含)(注：第一个字节序号为0) -->
+			<onLine RTUIdType="206" from="4" end="8">\x68.{1}\x68.*</onLine>
+			<!-- 完整性：即处理断包及粘包问题 lenType属性指数据字节数组中，数据长度字节的类型，分别有字符串(ASCII)、整数(INT)、BCD编码三种类型 
+				from end属性分别指在上报数据节数组中 数据长度 起始位(包含)与终止位(包含)(注：第一个字节序号为0) extraLen属性(附加数据长度) 
+				：上报一帧数据长度=标识的数据长度 +附加数据长度 -->
+			<complete lenType="INT" from="1" end="1" extraLen="5">\x68.{1}\x68.*</complete>
+			<!-- 通信服务器发送心跳到远端测控器(1) 远端发送心跳到通信服务器(0) 两端都不需要心跳(-1) -->
+			<sendHeartBeat>0</sendHeartBeat>
+			<!-- 心跳标识字符串, 无心跳或 在协议实现隐含实现(427协议如此)，此处配置为空 -->
+			<heartBeatString></heartBeatString>
+			<!-- 通信服务器向测控器发送心跳时，心跳的时间间隔(秒) 取值大于10秒;如果服务器不向测控器发心跳，此处配置无作用 -->
+			<heartBeatInterval>900</heartBeatInterval>
+			<!-- 测控终端向通信服务器发心跳时，通信服务器接收心跳后是否回复, 回复=1 , 不回复=0 , 无意义=-1（由协议内部实现,此处配置无意义) -->
+			<returnHeartBeat>0</returnHeartBeat>
+		</RTU>
+	</RTUs>
+
+
+	<!-- 卫星协议 -->
+	<satellites>
+		<sate>
+			<name>tianHong</name>
+			<driverName>com.am.cs12.commu.protocolSate.tianHong.DriverTH</driverName>
+			<!-- 
+			是否开启卫星授时功能 ，开启true,关闭false 
+			如果存在多个卫星协议，则只能有一个协议存在授时功能，否则重复
+			-->
+			<enableGrantTime>true</enableGrantTime>
+			<!-- 校时启动时刻小时(取值范围0到23) -->
+			<grantTimeStartHour>12</grantTimeStartHour>
+			<!-- 校时启动时刻分钟 (取值范围10到50)-->
+			<grantTimeStartMinute>30</grantTimeStartMinute>
+			<!-- 卫星时钟与本地时钟误差达到多少分钟时进行校时(取值范围1到5) -->
+			<grantTimeByDeviate>2</grantTimeByDeviate>
+		</sate>
+		<sate>
+			<name>beiDou</name>
+			<driverName>com.am.cs12.commu.protocolSate.beiDou.DriverBD</driverName>
+			<!-- 
+			是否开启卫星授时功能 ，开启true,关闭false 
+			如果存在多个卫星协议，则只能有一个协议存在授时功能，否则重复
+			-->
+			<enableGrantTime>false</enableGrantTime>
+			<!-- 校时启动时刻小时(取值范围0到23) -->
+			<grantTimeStartHour>12</grantTimeStartHour>
+			<!-- 校时启动时刻分钟 (取值范围10到50)-->
+			<grantTimeStartMinute>30</grantTimeStartMinute>
+			<!-- 卫星时钟与本地时钟误差达到多少分钟时进行校时(取值范围1到5) -->
+			<grantTimeByDeviate>2</grantTimeByDeviate>
+		</sate>
+	</satellites>
+
+</protocols>

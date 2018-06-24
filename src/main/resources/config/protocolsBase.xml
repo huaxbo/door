@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  各配置元素名称不能重名，否则将覆盖;
+  各配置元素名称已经与程序关联，不能修改！
+ -->
+<configs>
+	<!-- 
+	测控器上报数据的头部最小长度，不同协议不同，选择一个最大作为最小值，使得可以全包含各种协议，
+	设置该属性以备进行完整性检查，即断包与粘包检查
+	 -->
+	<headMinLength>8</headMinLength>
+	<!-- 
+	允许发送一个命令的最大次数，
+	即如果通信服务器下发命令后测控器未回复命令结果，通信服务器将再次发送此命令，
+	直到收到命令回复结果，或达到最大命令发送次数 ，
+	发送命令的最大次数包括第一次发送及后续再次发送的次数。
+	取值范围1-10(包括1与10)
+	-->
+	<maxSendCommandTimes>1</maxSendCommandTimes>
+	<!-- 
+	重复发命令的时间间隔(秒)，也就是最大等待命令回数的时间间隔，
+	如果大于这个时间，就认为命令没有回数。
+	取值范围10-600(包括10与600)
+	 -->
+	<sendCommandInterval>10</sendCommandInterval>
+	<!-- 
+	命令超时时长(秒)
+	从缓存的命令最后一次发出或最后一次得到回复数据时开始计时，超过配置的时长后，命令
+	将从命令缓存中被强制清除
+	取值范围maxSendCommandTimes*sendCommandInterval 至 maxSendCommandTimes*sendCommandInterval*10
+	-->
+	<commandTimeout>90</commandTimeout>
+	<!-- 
+	下送确认命令与其他命令(包括确认命令)间的时间间隔(秒)
+	取值范围1-5整数
+	-->
+	<confirmCommandInterval>1</confirmCommandInterval>
+	<!-- 
+	最大连续命令失败次数(单个命令多次重发仍算作一次命令)，达到这个数，即认为DTU不在线 
+	当取值为0时，表示不进行最大连续命令失败次数控制，即不论失败多少次，不做DTU在线状态改变
+	取值范围 0以上整数
+	-->
+	<maxContinueFailCommandTimes>3</maxContinueFailCommandTimes>
+	<!-- 
+	测控终端网络联接最小无上传数据的时长，达到这个时长，即认为测控终端已经不在线。
+	这个时间要根据具体项目而定，不同项目所在地区不同，测控终端的最大心跳间隔时长也不同，
+	测控终端的最大心跳间隔时长，也就是允许的测控终端网络联接最小无上传数据时间,
+	所以此值应该大于所有测控终端中最大心跳间隔时长。
+	单位(分钟)，取值范围(1到65)(取60以上，目的是：如果测控终端无心跳，则可以用整点上报数据作最小上传数据时间间隔)
+	-->
+	<minMeterConnectIdleInterval>5</minMeterConnectIdleInterval>
+	
+	<!-- 
+	通过"测控终端网络联接最小无上传数据的时长"规则，判断测控终端不在线时，是否关闭网络连接
+	配置值只能为true或false
+	true:关闭
+	false:不关闭
+	-->
+	<checkConnectOffCloseSocketForIdleInterval>true</checkConnectOffCloseSocketForIdleInterval>
+	<!-- 
+	通过"最大连续命令失败次数"规则，判断测控终端不在线时，是否关闭网络连接
+	配置值只能为true或false
+	true:关闭
+	false:不关闭
+	-->
+	<checkConnectOffCloseSocketForContinueFailCommandTimes>true</checkConnectOffCloseSocketForContinueFailCommandTimes>
+	
+	<!-- 
+	通信服务器自动较时测控终端时钟，
+	测控终端数据中如果包含时钟，则进行时钟比对，
+	如果时钟相差在最大允许误差范围内，则不进行较时，如果在最大允许误差范围外，则进行较时。
+	因为雨量计在8时时进行日数据设置，所有在测控终端8时时不能过行较时
+	-->
+	<!-- 是否开启较时功能  true为启动，false为不启动-->
+	<synchronizeClockEnable>true</synchronizeClockEnable>
+	<!-- 测控终端不允许较时的时钟所处小时(雨量计一般是8时，因为8时时是跨日数据设置时刻) -->
+	<synchronizeClockdeny>8</synchronizeClockdeny>
+	<!-- 最大允许误差(分钟) -->
+	<synchronizeClockDifference>5</synchronizeClockDifference>
+	
+	
+</configs>

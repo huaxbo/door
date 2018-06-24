@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache updateCheck="false" name="ehcache-shiro">
+
+	<diskStore path="java.io.tmpdir/ehcache/shiro" />
+
+	<defaultCache maxElementsInMemory="10000" 
+		eternal="true"
+		timeToIdleSeconds="120" 
+		timeToLiveSeconds="120" 
+		overflowToDisk="true"
+		diskPersistent="true" 
+		diskExpiryThreadIntervalSeconds="120" />
+	<!-- shiro ehcache：：EnterpriseCacheSessionDAO默认引用shiro-activeSessionCache -->
+	<cache name="shiro-activeSessionCache" 
+		maxElementsInMemory="10000"
+		overflowToDisk="true" 
+		eternal="true" 
+		timeToLiveSeconds="0"
+		timeToIdleSeconds="0" 
+		diskPersistent="true"
+		diskExpiryThreadIntervalSeconds="600" />
+</ehcache>

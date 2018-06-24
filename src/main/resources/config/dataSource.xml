@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--数据源模块可以配置多个数据源 -->
+<dataSources>
+  <dataSource>
+    <description>数据源1</description>
+    <dataSourceName>db1</dataSourceName>
+    <!-- 
+    <driverClass>oracle.jdbc.driver.OracleDriver</driverClass>
+    <url>jdbc:oracle:thin:@192.168.0.10:1521:sxwater</url>
+    -->
+    <driverClass>net.sourceforge.jtds.jdbc.Driver</driverClass>
+    <url>jdbc:jtds:sqlserver://172.16.60.18:1433;DatabaseName=hydro_monitor2;useUnicode=true;characterEncoding=GBK;autoReconnect=true</url>
+    <user>sa</user>
+    <password>automic</password>
+    <maxCount>100</maxCount>
+    <minCount>1</minCount>
+    <autoCommit>true</autoCommit>
+    <!--
+	    是否需要测试
+	    以下两个元素配置连接测试属性，
+	    当一定时间内(分钟)连接无任何操作时，重新应用此连接，需要进行连接是否有效测试
+	    如果有效这个连接将被应用，如果无效，连接将被抛弃
+    -->
+    <needTestConnection>true</needTestConnection>
+    <!-- 连接发呆长时(分钟) -->
+    <timeConNeedTest>10</timeConNeedTest>
+  </dataSource>
+<!-- 
+  <dataSource>
+    <description>数据源2</description>
+    <dataSourceName>db2</dataSourceName>
+    <driverClass>net.sourceforge.jtds.jdbc.Driver</driverClass>
+    <url>jdbc:jtds:sqlserver://localhost:1433;DatabaseName=test2;useUnicode=true;characterEncoding=GBK;autoReconnect=true</url>
+    <user>sa</user>
+    <password>02D235</password>
+    <maxCount>100</maxCount>
+    <minCount>1</minCount>
+    <autoCommit>true</autoCommit>
+    <needTestConnection>true</needTestConnection>
+    <timeConNeedTest>10</timeConNeedTest>
+  </dataSource>
+  -->
+</dataSources>
+
+  

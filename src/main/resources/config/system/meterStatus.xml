@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 各配置元素名称不能重名，否则将覆盖; 各配置元素名称已经与程序关联，不能修改！ <meter rtuId="" workModel="" 
+	date="年月日"> 在线时长(单位分钟),不常在线的在线时长为-1 <on></on> <onTd></onTd> 不在线时长(单位分钟)，不常在线的不在线时长为-1 
+	<off></off> <offTd></offTd> 成功命令次数 <success></success> <successTd></successTd> 
+	失败命令次数 <fail></fail> <failTd></failTd> 主动上报数据次数 <report></report> <reportTd></reportTd> 
+	GPRS通信收入数据累计量(K字节) <inTotal></inTotal> <inTotalTd></inTotalTd> GPRS通信发出数据累计量(K字节) 
+	<outTotal></outTotal> <outTotalTd></outTotalTd> 通信发出短信累计量(条) <outSmTotal></outSmTotal> 
+	<outSmTotalTd></outSmTotalTd> 通信接收短信累计量(条) <inSmTotal></inSmTotal> <inSmTotalTd></inSmTotalTd> 
+	通信发出卫星数据累计量(条) <outSateTotal></outSateTotal> <outSateTotalTd></outSateTotalTd> 
+	通信接收卫星数据累计量(条) <inSateTotal></inSateTotal> <inSateTotalTd></inSateTotalTd> 
+	一天内容主动上报数据的时刻,不同时刻用@分隔 只记录时分，例如8:30@9:35@11:20等等 <reportTime></reportTime> 
+	</meter> --><meters>
+</meters>

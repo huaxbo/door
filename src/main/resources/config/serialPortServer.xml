@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+  enable：是否启动
+  debugForNoTerminal：调试阶段，未接串口终端，以备业务系统感觉到发数据成功:设置为true，正式运行阶段，设置为false ;
+  id：ID号，其他部分以此来引用所对应的串口，所以此ID是固定的，对于神州天鸿取名为tianHong_COM、北斗取名为beiDou_COM
+  name：端口名称
+  baudrate：波特率
+  dataBits：数据位数
+  stopBits：停止位数
+  parity：校验(none：不校验；odd：奇校验；even：偶校验)
+  waitTime：当串口有数据到来时，有个循环从串读数据读数据，每次循环相间隔的时长(毫秒)(取值0-500)
+  protocolType：串口所对应的协议类型，当前只支持卫星类型(sate)
+  protocolName：串口所对应的协议(名称已经与程序绑定)。天鸿（tianHong）、北斗（beiDou）
+  sendInterval：在串口上每次发送命令时间间隔(单位：毫秒，取值范围100-600000)
+ -->
+<serialPortServer>
+	<ports>
+		<!-- 天鸿卫星协议2.5 
+	  	<port enable="true" debugForNoTerminal="false" id="tianHong_COM" name="COM1" baudrate="9600" dataBits="8" stopBits="1" parity="none" waitTime="20" protocolType="sate" protocolName="tianHong" sendInterval="60000"></port>-->
+	  	<!-- 北斗卫星协议4.0 -->
+	  	<port enable="true" debugForNoTerminal="false" id="beiDou_COM" name="COM4" baudrate="19200" dataBits="8" stopBits="1" parity="none" waitTime="20" protocolType="sate" protocolName="beiDou" sendInterval="60000"></port>
+	</ports>
+</serialPortServer>

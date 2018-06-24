@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<meters>
+
+	<!-- 
+	测控终端meter
+	测控终端meter只能拥有一个RTU；
+	一个DTU不能接入多个RTU，以及RTU不能接入子RTU（透传RTU），原因是没有DTU ID；
+
+	id：测控终端编号（地址）；
+	id在47协议中，前四位为BCD城市编号，后七位为BIN整数，最大取值为2097151，但2097151是广播地址(协议：终端、中继地址A2选址范围为000001H~1FFFFEH。1FFFFFH为广播地址，000000H为无效地址)
+	phone:测控终端SIM卡手机号；
+	satelliteId：测控终端卫星用户ID；
+	
+	RTUP：RTU协议名称
+	RTUKEY：指协议中的密钥，必须配置，密钥为整数，取值范围0-9，取0为固定密码算法，如果协议无密钥，配置为0
+	RTUDEFPASS：指协议中密钥为固定密码方式时的测控终端中的RTU的密码，必须配置，密码为整数，取值范围0-4095，如果协议无密码，配置为0
+	
+	channels:测控终端所采用的通道，可以多个通道，以","分隔，通道选择从前向后依次选择，即前面的为主，当前支持的通道有gprs,serialPort(当前即为卫星)，根据当前协议，短信通道不在选择之列，因为协议归定了走短信通道的具体命令
+	mainChannel:测控终端所采用的主通道(channels通道之一，即gprs,serialPort之一)
+	comId：串口ID，对应serialPortServer.xml配置文件相关配置；
+
+ 	dataTo：指测控终端RTU上报数据分发的方向，即分发给各个服务，在publishServers.xml中配置，如果有新的分发要求，要与之实现，配置到服务器中。
+	
+    onlineAlways:在线方式，常在线(有卫星一定常在线)为true,不常在线(低功耗)false，当测控终端为常在线方式时，不论采用何种通信信道，下发命令数据将立即发送出
+
+	
+	<meter id="11000000000001" phone="13811991765" satelliteId="218701" 
+			RTUP="RTU_01.00.00" RTUKEY="0" RTUDEFPASS="0" sateP="tianHong" 
+			channels="gprs,serialPort" mainChannel="gprs" comId="tianHong_COM" 
+			dataTo="dbServer1" onlineAlways="true" picWait="">
+	</meter>
+	-->
+	
+</meters>

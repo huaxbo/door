@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  各配置元素名称不能重名，否则将覆盖;
+  各配置元素名称已经与程序关联，不能修改！
+ -->
+<configs>
+	<!-- 中心站地址：配置数字，范围1~255。-1：表示进行中心一致性验证 -->
+	<centerNum>1</centerNum>
+	<!-- 以下配置各个服模块是否启动，启动为true，不启动为false -->
+	<!-- 数据源服务 -->
+    <dataSourceServer>false</dataSourceServer>
+	<!-- 远程通信服务 -->
+    <remoteServer>true</remoteServer>
+	<!-- 本地通信服务 -->
+    <localServer>false</localServer>
+	<!-- 短信通信服务 -->
+    <smServer>false</smServer>
+	<!-- 串口通信服务 -->
+    <serialPortServer>false</serialPortServer>
+	<!-- 数据发布服务(可有多个服务) -->
+    <publishServer>false</publishServer>
+	<!-- web服务 -->
+    <webServer>false</webServer>
+    <!-- 
+    	命令发送模式(gprsStat:无线网络或卫星通信，sm:短信通信):
+    	    |
+    	    |——兼容模式 |——gprsStat优先(配置值为：gprsStat-sm) 
+    	    |          |
+    	    |          |——sm优先(配置值为：sm-gprsStat)
+    	    |——gprsStat模式(配置值为gprsStat)
+    	    |
+    	    |——sm模式(配置值为sm)
+    	 另外，某些命令只能通过短信通道发送，例如唤醒命令，这些命令在smServer.xml配置文件中配置
+     -->
+    <commandSendType>gprsStat</commandSendType>
+    <!-- 是否支持卫星通信 -->
+    <satelliteEnable>false</satelliteEnable>
+    <!-- 是否支持图像 -->
+    <pictureEnable>false</pictureEnable>
+    
+    <!-- 是否开启系统运行状态监测 (开启：true, 不开启：false)-->
+    <statusMonitorEnable>false</statusMonitorEnable>
+    
+    <!-- 是否开启mina自带日志 (开启：true, 不开启：false)-->
+    <minaLogEnable>false</minaLogEnable>
+    
+</configs>

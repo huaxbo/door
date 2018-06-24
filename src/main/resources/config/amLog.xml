@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  各配置元素名称不能重名，否则将覆盖;
+  各配置元素名称已经与程序关联，不能修改！
+ -->
+<configs>
+	<!-- 日志文件存储目录(相对目录) -->
+    <logDir>amlog</logDir>
+	<!-- 日志文件最大字节数(KB)，如值范围500至1000 -->
+    <fileMaxSize>1000</fileMaxSize>
+	<!-- 日志文件最大文件数，如值范围2至10 -->
+    <fileMaxNum>2</fileMaxNum>
+</configs>
