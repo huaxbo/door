@@ -68,7 +68,7 @@ public class DoorController {
     	DoorVO vo = new DoorVO();
     	vo.setDtuId(dtuId);
     	//查询设备否在线
-    	if(!CmdSender.isOnline(dtuId)){
+    	/*if(!CmdSender.isOnline(dtuId)){
     		vo.setSucc(ConstantGlo.NO);
     		vo.setError("设备尚未上线，命令发送失败！");
     		
@@ -86,10 +86,16 @@ public class DoorController {
     	}else{
     		Data d = (Data)rlt;
     		Data206_cdF1 sd = (Data206_cdF1)d.getSubData();
+    		
     		vo.setSucc(ConstantGlo.YES);
-    		vo.setRltState(sd.getState());
-    	}
+    		vo.setRltState(sd);
+    	}*/
         
+    	Data206_cdF1 sd = new Data206_cdF1();
+    	sd.setLockState(6);
+    	vo.setRltState(sd);
+    	
+    	
         return vo;
     }
 }

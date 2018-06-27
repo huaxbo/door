@@ -59,16 +59,18 @@ public class ReadAnswer_F4 extends ProtocolAbstract{
 		
 		// 分析数据域
 		UtilProtocol up = new UtilProtocol();
-		dd.setAngle(b[n++] & 0xFF);
-		Integer hcho = up.bytes2Int(b, n, 2,"DESC");
-		dd.setHcho(new BigDecimal(hcho).divide(new BigDecimal(100),
-				2,BigDecimal.ROUND_HALF_UP).doubleValue());
-		n += 2;
-		dd.setDwarn1(b[n++] & 0xFF);
-		dd.setDwarn2(b[n++] & 0xFF);
+
+		Integer hcho = up.bytes2Int(b, n, 3,"DESC");
+		dd.setHcho(new BigDecimal(hcho).divide(new BigDecimal(1000),
+				3,BigDecimal.ROUND_HALF_UP).doubleValue());
+		n += 3;
+		dd.setDoorState(b[n++] & 0xFF);
+		dd.setAngle(b[n++] & 0xFF);	
+		dd.setLockMark(b[n++] & 0xFF);
 		dd.setLockState(b[n++] & 0xFF);
-		dd.setLockOriginal(b[n++] & 0xFF);
-		dd.setLockWarn(b[n++] & 0xFF);
-		dd.setLockPower(b[n] & 0xFF);
+		dd.setPowerMark(b[n++] & 0xFF);
+		dd.setPowerState(b[n++] & 0xFF);
+		dd.setWarnMark(b[n++] & 0xFF);
+		dd.setWarnState(b[n++] & 0xFF);
 	}
 }

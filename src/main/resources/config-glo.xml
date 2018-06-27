@@ -9,4 +9,8 @@
 	<!-- 分页：每页记录数 -->
 	<sys_perPage>10</sys_perPage>		
 		
+		
+	<jg_secret>46e58dd9fd62ad8557998b56</jg_secret>
+	<jg_key>d2eabca4f521b5acbb1fe561</jg_key>
+	
 </config_glo>
