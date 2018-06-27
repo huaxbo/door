@@ -18,8 +18,9 @@ public class JgPusher {
 
 	/**
 	 * @param mess
+	 * return null表示发送失败
 	 */
-	public static void pushMess(String mess,String title) {
+	public static String pushMess(String mess,String title) {
 		JPushClient jpushClient = new JPushClient(
 				ConfigGloUtil.getElementText("jg_secret"),
 				ConfigGloUtil.getElementText("jg_key"), null,
@@ -32,16 +33,22 @@ public class JgPusher {
 			
 			log.info(result.getOriginalContent());
 			
+			return result.getOriginalContent();
+			
 		} catch (APIConnectionException e) {
 			// Connection error, should retry later
 			log.error("Connection error, should retry later", e);
-
+			
+			return null;
 		} catch (APIRequestException e) {
 			// Should review the error, and fix the request
 			log.error("Should review the error, and fix the request", e);
 			log.info("HTTP Status: " + e.getStatus());
 			log.info("Error Code: " + e.getErrorCode());
 			log.info("Error Message: " + e.getErrorMessage());
+			
+			return null;
+			
 		}finally{}
 	}
 
@@ -51,7 +58,7 @@ public class JgPusher {
 	 */
 	private static PushPayload buildPushObject_all_all_alert(String mess) {
 	        return PushPayload.alertAll(mess);
-	 }
+	}
 		
 	
 	public static void main(String[] args){

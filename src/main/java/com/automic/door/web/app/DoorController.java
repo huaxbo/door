@@ -11,6 +11,7 @@ import com.am.cs12.commu.protocol.amRtu206.cdF1.Data206_cdF1;
 import com.am.cs12.commu.protocol.amRtu206.cdF1.Param206_cdF1;
 import com.automic.door.util.cmder.CmdRlt;
 import com.automic.door.util.cmder.CmdSender;
+import com.automic.door.util.pusher.JgPusher;
 import com.automic.global.util.ConstantGlo;
 import com.automic.global.util.mvc.MvcCfg;
 
@@ -68,7 +69,7 @@ public class DoorController {
     	DoorVO vo = new DoorVO();
     	vo.setDtuId(dtuId);
     	//查询设备否在线
-    	/*if(!CmdSender.isOnline(dtuId)){
+    	if(!CmdSender.isOnline(dtuId)){
     		vo.setSucc(ConstantGlo.NO);
     		vo.setError("设备尚未上线，命令发送失败！");
     		
@@ -89,13 +90,26 @@ public class DoorController {
     		
     		vo.setSucc(ConstantGlo.YES);
     		vo.setRltState(sd);
-    	}*/
+    	}
         
-    	Data206_cdF1 sd = new Data206_cdF1();
-    	sd.setLockState(6);
-    	vo.setRltState(sd);
-    	
-    	
         return vo;
+    }
+    
+    /**
+     * 广告推送
+     * @param dtuId
+     * @return
+     */
+    @RequestMapping("/" + act_prefix + "/pushAdver" + MvcCfg.action_suffix)
+    public DoorVO pushAdver(String mess){
+    	String rlt = JgPusher.pushMess(mess, "信息通知");
+    	DoorVO vo = new DoorVO();
+    	if(rlt != null){
+    		vo.setSucc(ConstantGlo.YES);
+    	}else{
+    		vo.setSucc(ConstantGlo.NO);
+    	}
+    	
+    	return vo;
     }
 }
