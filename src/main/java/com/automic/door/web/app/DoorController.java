@@ -2,6 +2,8 @@ package com.automic.door.web.app;
 
 import java.util.HashMap;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +20,7 @@ import com.automic.global.util.mvc.MvcCfg;
 @RestController
 public class DoorController {
 
+	private Logger log = LogManager.getLogger(DoorController.class);
 	 /**
      * url前缀--自定义
      */
@@ -72,6 +75,7 @@ public class DoorController {
     	if(!CmdSender.isOnline(dtuId)){
     		vo.setSucc(ConstantGlo.NO);
     		vo.setError("设备尚未上线，命令发送失败！");
+    		log.warn("设备尚未上线，命令发送失败！");
     		
     		return vo;
     	}
@@ -84,12 +88,14 @@ public class DoorController {
     	if(rlt == null){
     		vo.setSucc(ConstantGlo.NO);
     		vo.setError("命令回执超时，请稍后重试...");
+    		log.warn("命令回执超时，请稍后重试...");
     	}else{
     		Data d = (Data)rlt;
     		Data206_cdF1 sd = (Data206_cdF1)d.getSubData();
     		
     		vo.setSucc(ConstantGlo.YES);
     		vo.setRltState(sd);
+    		log.info("命令回执=" + sd);
     	}
         
         return vo;
@@ -102,12 +108,24 @@ public class DoorController {
      */
     @RequestMapping("/" + act_prefix + "/pushAdver" + MvcCfg.action_suffix)
     public DoorVO pushAdver(String mess){
-    	String rlt = JgPusher.pushMess(mess, "信息通知");
     	DoorVO vo = new DoorVO();
+    	if(mess == null || mess.trim().equals("")){
+
+    		vo.setSucc(ConstantGlo.NO);
+    		log.warn("推送信息失败！");
+    		log.error("推送信息不能为空！");
+    		
+    		return vo;
+    	}
+    	log.info("推送信息=" + mess);
+    	
+    	String rlt = JgPusher.pushMess(mess, "信息通知");
     	if(rlt != null){
     		vo.setSucc(ConstantGlo.YES);
+    		log.info("推送信息成功！");
     	}else{
     		vo.setSucc(ConstantGlo.NO);
+    		log.warn("推送信息失败！");
     	}
     	
     	return vo;
