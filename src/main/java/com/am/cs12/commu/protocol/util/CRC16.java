@@ -91,4 +91,10 @@ public final class CRC16 {
 //		System.arraycopy(new byte[]{(byte)(c / 256)}, 0, crc, 1, 1);
 		return crc;
 	}
+	
+	public static void main(String[] args) {
+		CRC16 crc = new CRC16();
+		int c = crc.CRC_table(new byte[]{(byte)0xB0, 01, 02, 03, 04, 05, 02});
+		System.out.println(c);
+	}
 }

@@ -11,6 +11,8 @@ import com.am.cs12.commu.protocol.Data;
 import com.am.cs12.commu.protocol.amRtu206.Code206;
 import com.am.cs12.commu.protocol.amRtu206.cdF1.Data206_cdF1;
 import com.am.cs12.commu.protocol.amRtu206.cdF1.Param206_cdF1;
+import com.am.cs12.commu.protocol.amRtu206.cdF2.Param206_cdF2;
+import com.am.cs12.commu.protocol.amRtu206.cdF3.Param206_cdF3;
 import com.automic.door.util.cmder.CmdRlt;
 import com.automic.door.util.cmder.CmdSender;
 import com.automic.door.util.pusher.JgPusher;
@@ -81,7 +83,21 @@ public class DoorController {
     	}
     	//命令发送
     	HashMap<String,Object> params = new HashMap<String,Object>(0);
-    	params.put(Param206_cdF1.KEY, flag);
+    	if(code.equals(Code206.cd_F1)){
+        	Param206_cdF1 param = new Param206_cdF1();
+        	param.setState(flag);
+        	params.put(Param206_cdF1.KEY, param);
+    	}
+    	if(code.equals(Code206.cd_F2)){
+        	Param206_cdF2 param = new Param206_cdF2();
+        	param.setState(flag);
+        	params.put(Param206_cdF2.KEY, param);
+    	}if(code.equals(Code206.cd_F3)){
+        	Param206_cdF3 param = new Param206_cdF3();
+        	param.setState(flag);
+        	params.put(Param206_cdF3.KEY, param);
+    	}
+    	
     	CmdSender.sendCmd(dtuId, cmdId, code, params);
     	//命令结果获取
     	Object rlt = cmder.getCmdRltWait(cmdId, null);

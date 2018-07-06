@@ -28,7 +28,7 @@ public class CRC16_forHydro {
 	}
 	
 	public static void main(String[] args){
-		byte[] b = new byte[]{};
+		byte[] b = new byte[]{ (byte)0xB0, 01, 02, 03, 04, 05, 02};
 		int crc = CRC16_forHydro.cal_crc16(b);
 		System.out.println(Integer.toHexString(crc));
 	}
