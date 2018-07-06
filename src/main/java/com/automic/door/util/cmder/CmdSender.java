@@ -48,7 +48,7 @@ public class CmdSender {
 		}
 		Command com = buildCommand(dtuId,cmdId,params,code);
 		//通过GPRS或卫星能够即时发命令(字节命令)了
-		Action action = rtuDriver.createCommand(com,new Integer[]{0,0}) ;
+		Action action = rtuDriver.createCommand(com,new Integer[]{1,2}) ;
 		if (action.has(Action.remoteCommand)) {
 			//动作类型是向远端发送数据
 			byte[] buf = rtuDriver.getRemoteData() ;

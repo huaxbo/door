@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.am.cs12.commu.protocol.Data;
 import com.am.cs12.commu.protocol.amRtu206.Code206;
-import com.am.cs12.commu.protocol.amRtu206.cdF1.Data206_cdF1;
 import com.am.cs12.commu.protocol.amRtu206.cdF1.Param206_cdF1;
 import com.am.cs12.commu.protocol.amRtu206.cdF2.Param206_cdF2;
 import com.am.cs12.commu.protocol.amRtu206.cdF3.Param206_cdF3;
@@ -107,11 +106,10 @@ public class DoorController {
     		log.warn("命令回执超时，请稍后重试...");
     	}else{
     		Data d = (Data)rlt;
-    		Data206_cdF1 sd = (Data206_cdF1)d.getSubData();
     		
     		vo.setSucc(ConstantGlo.YES);
-    		vo.setRltState(sd);
-    		log.info("命令回执=" + sd);
+    		vo.setRltState(d.getSubData());
+    		log.info("命令回执=" + d.getSubData());
     	}
         
         return vo;

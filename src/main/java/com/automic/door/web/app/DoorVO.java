@@ -7,7 +7,7 @@ public class DoorVO {
 	private String dtuId;//设备id
 	
 	private String rltDtuId;//回执：设备id
-	private Data206_cdF1 rltState;//回执：门状态
+	private Object rltState;//回执：门状态
 	
 	private String succ;//成功提示，1:成功、0：失败
 	private String error;//异常提示，提示信息
@@ -44,11 +44,11 @@ public class DoorVO {
 		this.rltDtuId = rltDtuId;
 	}
 
-	public Data206_cdF1 getRltState() {
+	public Object getRltState() {
 		return rltState;
 	}
 
-	public void setRltState(Data206_cdF1 rltState) {
+	public void setRltState(Object rltState) {
 		this.rltState = rltState;
 	}
 	

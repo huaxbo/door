@@ -57,7 +57,7 @@ public class Write_F3 {
 		if(cp.hasDIVS){
 			fromSite += 1 ;
 		}
-		b = new CodeProtocol().createCode(b, Code206.cd_F1, fromSite) ;
+		b = new CodeProtocol().createCode(b, Code206.cd_F3, fromSite) ;
 		
 		
 		//数据域 

@@ -23,25 +23,33 @@ public class Data206_cdF4 {
 	 */
 	public String toString(){
 		StringBuilder sder = new StringBuilder();
-		sder.append(",甲醛浓度=" + hcho + "mg/m3");
-		sder.append("门状态=" + doorState);
-		sder.append("门角度=" + angle);
+		sder.append("甲醛浓度=" + hcho + "mg/m3");
+		sder.append(",门状态=" + doorState);
+		sder.append(",门角度=" + angle);
 		sder.append(",锁标记=" + lockMark);
 		sder.append(",锁状态=" + lockState);
-		sder.append("(");
-		sder.append(lockStates[0] == 0 ? "关锁" : "开锁");
-		sder.append(lockStates[1] == 0 ? "锁不在原点" : "锁在原点");
-		sder.append(lockStates[2] == 0 ? "锁无电" : "锁有点");
-		sder.append(")");
+		if(lockStates != null){
+			sder.append("(");
+			sder.append(lockStates[0] == 0 ? "关锁" : "开锁");
+			sder.append("/");
+			sder.append(lockStates[1] == 0 ? "锁不在原点" : "锁在原点");
+			sder.append("/");
+			sder.append(lockStates[2] == 0 ? "锁无电" : "锁有点");
+			sder.append(")");
+		}
 		sder.append(",电源标记=" + powerMark);
 		sder.append(",电源状态=" + powerState);
 		sder.append(",报警标记=" + warnMark);
 		sder.append(",报警状态=" + warnState);
-		sder.append("(");
-		sder.append(warnStates[0] == 0 ? "正常" : "欠压");
-		sder.append(warnStates[1] == 0 ? "正常" : "过流");
-		sder.append(warnStates[2] == 0 ? "门正常" : "门异常");
-		sder.append(")");
+		if(warnStates != null){
+			sder.append("(");
+			sder.append(warnStates[0] == 0 ? "正常" : "欠压");
+			sder.append("/");
+			sder.append(warnStates[1] == 0 ? "正常" : "过流");
+			sder.append("/");
+			sder.append(warnStates[2] == 0 ? "门正常" : "门异常");
+			sder.append(")");
+		}
 		
 		return sder.toString();
 	}
@@ -74,6 +82,10 @@ public class Data206_cdF4 {
 
 	public void setLockState(Integer lockState) {
 		this.lockState = lockState;
+		if(lockState == null){
+			
+			return ;
+		}
 		//锁状态数组
 		lockStates = new Integer[8];
 		for(int i = 0;i < 8;i++){
@@ -139,6 +151,10 @@ public class Data206_cdF4 {
 
 	public void setWarnState(Integer warnState) {
 		this.warnState = warnState;
+		if(warnState == null){
+			
+			return ;
+		}
 		//报警状态数组
 		warnStates = new Integer[8];
 		for(int i = 0;i < 8;i++){

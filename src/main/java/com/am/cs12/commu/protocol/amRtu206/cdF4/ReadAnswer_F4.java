@@ -59,18 +59,27 @@ public class ReadAnswer_F4 extends ProtocolAbstract{
 		
 		// 分析数据域
 		UtilProtocol up = new UtilProtocol();
-
-		Integer hcho = up.bytes2Int(b, n, 3,"DESC");
-		dd.setHcho(new BigDecimal(hcho).divide(new BigDecimal(1000),
-				3,BigDecimal.ROUND_HALF_UP).doubleValue());
+		if((b[n] & 0xFF) != 0xFF){
+			Integer hcho = up.bytes2Int(b, n, 3,"DESC");
+			dd.setHcho(new BigDecimal(hcho).divide(new BigDecimal(1000),
+					3,BigDecimal.ROUND_HALF_UP).doubleValue());
+		}
 		n += 3;
-		dd.setDoorState(b[n++] & 0xFF);
-		dd.setAngle(b[n++] & 0xFF);	
-		dd.setLockMark(b[n++] & 0xFF);
-		dd.setLockState(b[n++] & 0xFF);
-		dd.setPowerMark(b[n++] & 0xFF);
-		dd.setPowerState(b[n++] & 0xFF);
-		dd.setWarnMark(b[n++] & 0xFF);
-		dd.setWarnState(b[n++] & 0xFF);
+		
+		dd.setDoorState((b[n] & 0xFF) == 0xFF ? null : (b[n] & 0xFF));
+		n++;
+		dd.setAngle((b[n] & 0xFF) == 0xFF ? null : (b[n] & 0xFF));
+		n++;	
+		dd.setLockMark((b[n] & 0xFF) == 0xFF ? null : (b[n] & 0xFF));
+		n++;
+		dd.setLockState((b[n] & 0xFF) == 0xFF ? null : (b[n] & 0xFF));
+		n++;
+		dd.setPowerMark((b[n] & 0xFF) == 0xFF ? null : (b[n] & 0xFF));
+		n++;
+		dd.setPowerState((b[n] & 0xFF) == 0xFF ? null : (b[n] & 0xFF));
+		n++;
+		dd.setWarnMark((b[n] & 0xFF) == 0xFF ? null : (b[n] & 0xFF));
+		n++;
+		dd.setWarnState((b[n] & 0xFF) == 0xFF ? null : (b[n] & 0xFF));
 	}
 }

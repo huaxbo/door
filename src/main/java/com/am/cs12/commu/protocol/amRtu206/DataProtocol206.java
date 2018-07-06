@@ -34,7 +34,7 @@ public class DataProtocol206 {
 			fromSite += 1 ;
 		}
 		String code = new CodeProtocol().parseCode(b, fromSite) ;
-		return code ;
+		return code.toUpperCase() ;
 	}
 	
 	/**

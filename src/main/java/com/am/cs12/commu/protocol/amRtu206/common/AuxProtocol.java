@@ -67,8 +67,8 @@ public class AuxProtocol {
 		byte[] bkey = u.string2BCD(key) ;
 		byte[] bpass = u.string2BCD(pass) ;
 		
-		b[site_password] = bkey[0] ;
-		b[site_password + 1] = bpass[0] ;
+		b[site_password] = 1;//bkey[0] ;
+		b[site_password + 1] = 2;//bpass[0] ;
 
 		return b ;
 	}
