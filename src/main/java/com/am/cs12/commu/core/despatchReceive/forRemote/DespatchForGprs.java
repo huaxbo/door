@@ -18,7 +18,6 @@ import com.am.cs12.commu.core.remoteCommand.forGprsSerial.DealCachCommandForGprs
 import com.am.cs12.commu.core.remoteCommand.forGprsSerial.CommandTypeForGprsSerial;
 import com.am.cs12.commu.core.remoteStatus.MeterStatusManager;
 import com.am.cs12.commu.core.log.AmLog;
-import com.am.cs12.commu.core.despatchReceive.forPublish.DespatchForPublish;
 import com.am.cs12.commu.core.CoreServer;
 import com.am.cs12.util.AmConstant;
 import com.automic.door.util.cmder.CmdRlt;
@@ -233,7 +232,6 @@ public class DespatchForGprs {
 							//加入数据的十六进制
 							d.setHex(dataHex) ;
 
-							new DespatchForPublish().publishResult(id, d, code) ;
 							DealCachCommandForGprsSerail.instance().notifyCanSendCommand(id, AmConstant.channel_gprs) ;
 							//保存测控终端状态
 							MeterStatusManager.instance().atuoReportData(id, rtuDriver.getMeterWorkModel()) ;

@@ -13,8 +13,6 @@ import com.am.cs12.commu.core.log.AmLog;
 import com.am.cs12.commu.core.remoteGprs.RemoteSessionManager;
 import com.am.cs12.commu.core.remoteStatus.MeterStatusManager;
 import com.am.cs12.commu.core.CoreServer;
-import com.am.cs12.commu.core.despatchReceive.forLocal.DespatchFromCachCommand;
-import com.am.cs12.commu.core.remoteSerialPort.SerialPortReceiverSender;
 import com.am.cs12.commu.protocol.util.UtilProtocol;
 import com.am.cs12.config.*;
 import com.am.cs12.util.AmConstant;
@@ -573,33 +571,18 @@ public class DealCachCommandForGprsSerail {
 			 * @param rsm
 			 */
 			private void sendConfirmCommand(CommandNodeForGprsSerial node){
-				new SerialPortReceiverSender().sendMeterConfirmCommand(node.id, (byte[])node.commandData) ;
-				MeterStatusManager.instance().sendMeterSatellite(id) ;
-				try {
-					log.info("成功向测控器发送了命令(id=" + node.id + "/命令ID=" + node.commandId + "/功能码=" + node.code + "/已经发送次数:" + node.sendTimes + ")。\n>>>>>>>>发向测控终端(ID:" + node.id + ")命令:" + new UtilProtocol().byte2Hex((byte[])node.commandData , true).toUpperCase()) ;
-				} catch (Exception e) {
-				}
 			}
 			
 			/**
 			 * 发送命令
 			 * @param node
 			 */
-			private void sendCommand(CommandNodeForGprsSerial node){
-				new SerialPortReceiverSender().sendMeterCommand(node.id, (byte[])node.commandData) ;
-				//保存测控终端状态
-				MeterStatusManager.instance().sendMeterSatellite(id) ;
-				try {
-					log.info("成功向测控器发送了命令(id=" + node.id + "/命令ID=" + node.commandId + "/功能码=" + node.code + "/已经发送次数:" + node.sendTimes + ")。\n>>>>>>>>发向测控终端(ID:" + node.id + ")命令:" + new UtilProtocol().byte2Hex((byte[])node.commandData , true).toUpperCase()) ;
-				} catch (Exception e) {
-				}
-			}
+			private void sendCommand(CommandNodeForGprsSerial node){}
 			
 			/**
 			 * 处理原生命令
 			 */
 			private void dealObjCommand(CommandNodeForGprsSerial node){
-				new DespatchFromCachCommand().receiveCachCommand(node.commandData) ;
 			}
 			
 		}) ;
@@ -873,7 +856,6 @@ public class DealCachCommandForGprsSerail {
 				 * 处理原生命令
 				 */
 				private void dealObjCommand(CommandNodeForGprsSerial node){
-					new DespatchFromCachCommand().receiveCachCommand(node.commandData) ;
 				}
 				
 			}) ;

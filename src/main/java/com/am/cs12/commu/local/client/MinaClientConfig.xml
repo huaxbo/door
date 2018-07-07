@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<configs>
-	<!-- 等待建网络连接从而取得会话的最大时间，超过时长，即返回空会话 (取值范围1000-10000) -->
-    <connectTimeout>3000</connectTimeout>
-	<!-- 发出命令后，等待通信服务器处理命令返回的结果最在时长，超过时长，即返回空结果  (取值范围5000-10000) -->
-    <waitDataTimeout>10000</waitDataTimeout>
-</configs>

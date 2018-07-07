@@ -134,9 +134,7 @@ public class MeterConfig  extends Config {
 				if(attValue == null || attValue.trim().equals("")){
 					throw new IllegalArgumentException(filePath + "配置有错误，meter元素的" + MeterConstant.sateProtocol_key + "属性未配置！");
 				}else{
-					if(!this.isExistSateProtocol(attValue.trim())){
-						throw new IllegalArgumentException(filePath + "配置有错误，meter元素的" + MeterConstant.sateProtocol_key + "属性值在protocols.xml中未配置！");
-					}
+					
 					meterVo.sateProtocol = attValue.trim() ;
 				}
 			}
@@ -179,28 +177,9 @@ public class MeterConfig  extends Config {
 				if(attValue == null || attValue.trim().equals("")){
 					throw new IllegalArgumentException(filePath + "配置有错误，meter元素的" + MeterConstant.comId_key + "属性未配置！");
 				}else{
-					if(!this.isExistComId(attValue.trim())){
-						throw new IllegalArgumentException(filePath + "配置有错误，meter元素的" + MeterConstant.comId_key + "属性值在serialPortServer.xml中未配置！");
-					}
 					meterVo.comId = attValue.trim() ;
 				}
 			}
-
-			/*attValue = meter.getAttributeValue(MeterConstant.dataTo_key) ;
-			if(attValue == null || attValue.trim().equals("")){
-				throw new IllegalArgumentException(filePath + "配置有错误，meter元素的" + MeterConstant.dataTo_key + "属性必须配置！");
-			}else{
-				attValue = attValue.trim() ;
-				String[] ss = this.splitReportTo(attValue) ;
-				if(ss == null || ss.length == 0 ){
-					throw new IllegalArgumentException(filePath + "配置有错误，meter元素的" + MeterConstant.dataTo_key + "属性配置不正确！");
-				}
-				if(!this.isExistPublishServer(ss)){
-					throw new IllegalArgumentException(filePath + "配置有错误，meter元素的" + MeterConstant.dataTo_key + "属性配置值在publishServers.xml中不存在！");
-				}
-				meterVo.dataTo = ss ;
-			}*/
-			
 			
 			attValue = meter.getAttributeValue(MeterConstant.onlineAlways_key) ;
 			if(attValue == null || attValue.trim().equals("")){
@@ -212,8 +191,6 @@ public class MeterConfig  extends Config {
 				}
 				meterVo.onlineAlways = Boolean.parseBoolean(attValue) ;
 			}
-			
-			
 			
 			meterMap.put(meterVo.id , meterVo) ;
 		}
@@ -235,21 +212,7 @@ public class MeterConfig  extends Config {
 		}
 		return false ;
 	}
-	/**
-	 * 是否存在卫星协议
-	 * @param p
-	 * @return
-	 */
-	private boolean isExistSateProtocol(String p){
-		HashMap<String, SateProtocolVO> map = ConfigCenter.instance().getSateProtocolMap() ;
-		if(map != null){
-			if(map.containsKey(p)){
-				return true ;
-			}
-		}
-		return false ;
-	}
-
+	
 	/**
 	 * 检查RTU的手机号(phone)是否重复
 	 * @param filePath
@@ -303,39 +266,8 @@ public class MeterConfig  extends Config {
 			return true ;
 		}
 		return false ;
-	}
-	
-	/**
-	 * 是否存在串中ID
-	 * @param comId
-	 * @return
-	 */
-	private boolean isExistComId(String comId){
-		if(ServerConfig.serialPortServerEnable && ServerConfig.satelliteEnable){
-			HashMap<String, SerialPortVO> map = ConfigCenter.instance().getSerialPortMap() ;
-			if (map.containsKey(comId)) {
-				return true ;
-			}
-			return false ;
-		}else{
-			return true ;
-		}
-	}
-	/**
-	 * 检查RTU的发布服务是否存在
-	 * @param serverId
-	 */
-	private boolean isExistPublishServer(String[] serverId) {
-		HashMap<String, PublishServerVO> map = ConfigCenter.instance().getPublishServerMap() ;
-		boolean flag = true ;
-		for(int i = 0 ; i < serverId.length ; i++){
-			if (!map.containsKey(serverId[i])) {
-				flag = false ;
-			}
-		}
-		return flag ;
-	}
-	
+	}	
+		
 	/**
 	 * 把逗号分隔的字符串转转成字符串数组
 	 * @param s

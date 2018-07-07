@@ -17,15 +17,8 @@ public class ServerConfig {
 
 	private static final String dataSourceServer = "dataSourceServer";
 	private static final String remoteServer = "remoteServer";
-	private static final String localServer = "localServer";
-	private static final String smServer = "smServer";
-	private static final String serialPortServer = "serialPortServer";
-	private static final String publishServer = "publishServer";
-	private static final String webServer = "webServer";
 	private static final String remoteMeterTypeKey = "remoteMeterType";
 	private static final String commandSendTypeKey = "commandSendType";
-	private static final String satelliteEnableKey = "satelliteEnable";
-	private static final String pictureEnableKey = "pictureEnable";
 	private static final String centerNum = "centerNum";
 	private static final String statusMonitorKey = "statusMonitorEnable";
 	private static final String minaLogEnableKey = "minaLogEnable";
@@ -94,7 +87,7 @@ public class ServerConfig {
 	 * 
 	 * @throws IllegalArgumentException
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public void parseOptions(String filePath) throws IllegalArgumentException {
 		Element root = this.doc.getRootElement();
 		if (root == null) {
@@ -124,20 +117,6 @@ public class ServerConfig {
 				dataSourceServerEnable = Boolean.parseBoolean(value);
 			} else if (name.equals(remoteServer)) {
 				remoteServerEnable = Boolean.parseBoolean(value);
-			} else if (name.equals(localServer)) {
-				localServerEnable = Boolean.parseBoolean(value);
-			} else if (name.equals(smServer)) {
-				smServerEnable = Boolean.parseBoolean(value);
-			}  else if (name.equals(serialPortServer)) {
-				serialPortServerEnable = Boolean.parseBoolean(value);
-			} else if (name.equals(publishServer)) {
-				publishServerEnable = Boolean.parseBoolean(value);
-			} else if (name.equals(webServer)) {
-				webServerEnable = Boolean.parseBoolean(value);
-			}else if (name.equals(satelliteEnableKey)) {
-				satelliteEnable = Boolean.parseBoolean(value);
-			}else if (name.equals(pictureEnableKey)) {
-				pictureEnable = Boolean.parseBoolean(value);
 			} else if (name.equals(commandSendTypeKey)) {
 				commandSendType = value.trim();
 				if (!commandSendType.equals("gprsStat-sm")

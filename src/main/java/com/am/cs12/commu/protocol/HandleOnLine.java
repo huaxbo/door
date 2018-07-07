@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
-import com.am.cs12.commu.protocol.util.UtilProtocol;
+import com.am.cs12.commu.protocol.amRtu206.common.RtuIdProtocol;
 import com.am.cs12.config.ConfigCenter;
 import com.am.cs12.config.RTUProtocolVO;
 import com.am.cs12.config.conf.ProtocolRTUConstant;
@@ -242,30 +242,14 @@ public class HandleOnLine {
 	 * @return
 	 */
 	private String createRtuIdFor206(byte[] bs, int startIndex, int endIndex){
-		UtilProtocol u = new UtilProtocol() ;
-		int v = u.byte2PlusInt(bs[3]) ;
-		int v2 = (v & 0x40) >> 6 ;
-		if(v2 != 0){
-			startIndex ++;
-			endIndex ++;
+		try {
+			return new RtuIdProtocol().parseRtuId(bs, startIndex, endIndex);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		String preId = this.BCD2String(bs , startIndex , startIndex + 2 ) ;
-		while(preId.length() < 6){
-			preId = "0" + preId ;
-		}
-		int index = startIndex + 3 ;
-		byte[] b = new byte[endIndex - index + 1] ;
-		for(int i = 0 ; i < b.length ; i++){
-			b[i] = bs[index + i] ;
-		}
-		byte[] b2 = new byte[2] ;
-		b2[0] = b[1];
-		b2[1] = b[0];
-		String afterId = String.valueOf(this.bytes2Int(b2, 0, b2.length-1)) ;
-		while(afterId.length() < 4){
-			afterId = "0" + afterId ;
-		}
-		return preId +  afterId;
+		
+		return "";
 	}
 	/**
 	 * 获取遥测站配置类型码（protocols.xml中onLine的 RTUIdType属性）

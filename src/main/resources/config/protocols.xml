@@ -25,39 +25,4 @@
 		</RTU>
 	</RTUs>
 
-
-	<!-- 卫星协议 -->
-	<satellites>
-		<sate>
-			<name>tianHong</name>
-			<driverName>com.am.cs12.commu.protocolSate.tianHong.DriverTH</driverName>
-			<!-- 
-			是否开启卫星授时功能 ，开启true,关闭false 
-			如果存在多个卫星协议，则只能有一个协议存在授时功能，否则重复
-			-->
-			<enableGrantTime>true</enableGrantTime>
-			<!-- 校时启动时刻小时(取值范围0到23) -->
-			<grantTimeStartHour>12</grantTimeStartHour>
-			<!-- 校时启动时刻分钟 (取值范围10到50)-->
-			<grantTimeStartMinute>30</grantTimeStartMinute>
-			<!-- 卫星时钟与本地时钟误差达到多少分钟时进行校时(取值范围1到5) -->
-			<grantTimeByDeviate>2</grantTimeByDeviate>
-		</sate>
-		<sate>
-			<name>beiDou</name>
-			<driverName>com.am.cs12.commu.protocolSate.beiDou.DriverBD</driverName>
-			<!-- 
-			是否开启卫星授时功能 ，开启true,关闭false 
-			如果存在多个卫星协议，则只能有一个协议存在授时功能，否则重复
-			-->
-			<enableGrantTime>false</enableGrantTime>
-			<!-- 校时启动时刻小时(取值范围0到23) -->
-			<grantTimeStartHour>12</grantTimeStartHour>
-			<!-- 校时启动时刻分钟 (取值范围10到50)-->
-			<grantTimeStartMinute>30</grantTimeStartMinute>
-			<!-- 卫星时钟与本地时钟误差达到多少分钟时进行校时(取值范围1到5) -->
-			<grantTimeByDeviate>2</grantTimeByDeviate>
-		</sate>
-	</satellites>
-
 </protocols>

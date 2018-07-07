@@ -15,67 +15,12 @@
         classpath:spring-xsd/spring-tx-4.3.xsd"
 	default-autowire="byName">
 	<!-- 扫描spring annotation包，多包时以“,”隔开。本系统自定义仅仅扫描mvc.huaxb.*.下包目录 -->
-	<!-- <context:component-scan
-		base-package="com.automic.*.serv,com.automic.*.web"> -->
 	<context:component-scan
 		base-package="com.automic.door.serv,com.automic.door.web">
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
-	<!-- 引入属性文件 -->
-	<!-- <context:property-placeholder location="classpath:jdbc.properties" /> -->
-	<!-- DB2、SQL Server、MySQL 等非 Oracle 的其它数据库 -->
-	<!-- <bean id="defaultLobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler"
-		lazy-init="true" /> -->
-	<!-- Hibernate风格配置 。采用这种配置，可以用hibernate来创建数据库表 -->
-	<!-- <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
-		destroy-method="close">
-		<property name="driverClassName" value="${jdbc.driver}" />
-		<property name="url" value="${jdbc.url}" />
-		<property name="username" value="${jdbc.username}" />
-		<property name="password" value="${jdbc.password}" />
-		数据库检测
-		<property name="validationQuery" value="${jdbc.validate}" />
-		<property name="testOnBorrow" value="true" />
-
-	</bean> -->
-
-	<!-- hibernate annotation style config -->
-	<!-- <bean id="hbSessionFactory"
-		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<property name="dataSource" ref="dataSource"></property>
-		<property name="packagesToScan">
-			<list>
-				<value>com.automic.global.po</value>
-			</list>
-		</property>
-		<property name="hibernateProperties">
-			<props>
-				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
-				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
-				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
-				<prop key="hibernate.generate_statistics">true</prop>
-				<prop key="hibernate.cache.use_second_level_cache">${hibernate.levl2.cache}</prop>
-				<prop key="hibernate.cache.use_query_cache">${hibernate.levl2.cache}</prop>
-				<prop key="hibernate.cache.use_structured_entries">${hibernate.levl2.cache}</prop>
-				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.SingletonEhCacheRegionFactory</prop> 
-				<prop key="hibernate.cache.provider_class">net.sf.ehcache.hibernate.SingletonEhCacheProvider</prop>
-				<prop key="hibernate.cache.provider_configuration_file_resource_path">WEB-INF/classes/ehcache-hibernate.xml</prop>
-				<prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop>
-			</props>
-		</property>
-	</bean> -->
-	<!-- 使用Hibernate事务管理器 -->
-	<!-- <bean id="txManagerAnno"
-		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-		<property name="sessionFactory" ref="hbSessionFactory" />
-		<property name="nestedTransactionAllowed" value="true" />
-	</bean>
-	<tx:annotation-driven transaction-manager="txManagerAnno" /> -->
-
-	<!-- shiro权限控制 -->
-	<!-- <import resource="applicationContext-shiro.xml" /> -->
-
+	
 	<!-- 开启mvc注解 -->
 	<mvc:annotation-driven />
 </beans>  

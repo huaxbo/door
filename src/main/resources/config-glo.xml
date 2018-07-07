@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config_glo>
-	<!-- 系统标题 -->
-	<sys_title>奥特美克运营管理平台</sys_title>
-	<!-- 分页栏：最大页数 -->
-	<sys_maxPages>10</sys_maxPages>
-	<!-- 分页栏：每次翻页数 -->
-	<sys_perTurn>5</sys_perTurn>
-	<!-- 分页：每页记录数 -->
-	<sys_perPage>10</sys_perPage>		
-		
-		
+	<!-- 极光：推送secret -->
 	<jg_secret>46e58dd9fd62ad8557998b56</jg_secret>
+	<!-- 极光：推送key -->
 	<jg_key>d2eabca4f521b5acbb1fe561</jg_key>
 	
 </config_glo>

@@ -1,32 +1,15 @@
 package com.am.cs12;
 
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
-
 
 import com.am.cs12.commu.core.CoreServer;
-import com.am.cs12.commu.dataSource.DataSourceServer;
-import com.am.cs12.commu.local.server.LocalContext;
-import com.am.cs12.commu.local.server.LocalServer;
-import com.am.cs12.commu.publish.PublishCenter;
 import com.am.cs12.commu.remote_gprs.RemoteContext;
 import com.am.cs12.commu.remote_gprs.RemoteServer;
-import com.am.cs12.commu.remote_serialPort.SerialPortContext;
-import com.am.cs12.commu.remote_serialPort.SerialPortServer;
 import com.am.cs12.config.ConfigCenter;
-import com.am.cs12.util.AmConstant;
-import com.am.cs12.util.FindCom;
-import com.am.licence.CheckLicence;
 
 public class Server {
 	@SuppressWarnings("unused")
 	private static RemoteContext remoteContext = null ;
-	@SuppressWarnings("unused")
-	private static LocalContext localContext = null ;
-	@SuppressWarnings("unused")
-	private static SerialPortContext spContext = null ;
-
 	private static boolean started = false ;
 	private static boolean startException = false ;
 
@@ -99,14 +82,7 @@ public class Server {
 	 * @return
 	 */
 	public int checkLecence(){
-		CheckLicence cl = new CheckLicence();
 		int domain = -1 ;
-		if (cl.check(AmConstant.lecenceFilePath)) {
-			domain = cl.getDomainNum();
-			System.out.println("通信服务器lecence验证成功");
-		}else{
-			System.out.println("严重错误，通信服务器lecence验证失败");
-		}
 		
 		return domain;
 	}
@@ -175,55 +151,19 @@ public class Server {
 			//初始化配置
 			flag = ConfigCenter.instance().init() ;
 			if(flag){
-				if(ServerConfig.dataSourceServerEnable){
-					new DataSourceServer().start("dataSourceServer");
-				}
-				if(ServerConfig.publishServerEnable){
-					flag = PublishCenter.instance().startPublishServer() ;
-				}else{
-					System.err.println("!!数据发布服务配置为不启动。");
-				}
 
 				new CoreServer().start("coreServer");
 
-				if(ServerConfig.smServerEnable || ServerConfig.serialPortServerEnable){
-					findCom() ;
-				}
-				
-				if(ServerConfig.serialPortServerEnable){
-					spContext = new SerialPortServer().start();
-				}else{
-					System.err.println("!!串口通信服务配置为不启动。");
-				}
-				
 			
 				if(ServerConfig.remoteServerEnable){
 					remoteContext = new RemoteServer().start();
 				}else{
 					System.err.println("!!远程通信服务配置为不启动。");
 				}
-				if(ServerConfig.localServerEnable){
-					localContext = new LocalServer().start();
-				}else{
-					System.err.println("!!本地通信服务配置为不启动。");
-				}
 				
 			}
 			return flag ;
 		}
-		private void findCom(){
-			FindCom find = new FindCom() ;
-			List<String> list = find.find() ;
-			if(list != null){
-				System.out.print("--发现系统可用串口：") ;
-				Iterator<String> it = list.iterator() ;
-				while(it.hasNext()){
-					System.out.print(it.next() + " ") ;
-				}
-				System.out.println("，请正确选择以配置所用串口") ;
-			}
-		}
-		
 
 	}
 }

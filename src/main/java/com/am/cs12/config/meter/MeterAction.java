@@ -1,7 +1,5 @@
 package com.am.cs12.config.meter;
 
-import java.util.HashMap;
-
 
 
 import org.apache.logging.log4j.LogManager;
@@ -117,11 +115,6 @@ public class MeterAction {
 			}
 		}
 		
-		if(comId != null && !comId.equals("") && !isExistComId(comId)){
-			this.error = "此测控终端ID(" + id + ")的" + comId + "在serialPortServer.xml中未配置！" ;
-			return false ;
-		}
-		
 		MeterVO vo = mh.addMeter(id,phone,satelliteId,rtuProtocol,sateProtocol,channels,mainChannel,comId,dataTo,onlineAlways) ;
 		if(vo != null){
 			boolean flag = true ;
@@ -215,11 +208,6 @@ public class MeterAction {
 			}
 		}
 		
-		if(comId != null && !comId.equals("") && !isExistComId(comId)){
-			this.error = "此测控终端ID(" + id + ")的" + comId + "在serialPortServer.xml中未配置！" ;
-			return false ;
-		}
-
 		MeterVO vo = mh.editMeter(oldId,id,phone,satelliteId,rtuProtocol,sateProtocol,channels,mainChannel,comId,dataTo,onlineAlways) ;
 		if(vo != null){
 			boolean flag = true ;
@@ -295,18 +283,5 @@ public class MeterAction {
 	public MeterVO getMeter(String rtuId){
 		return new MeterHelp().getMeter(rtuId) ;
 	}
-	/**
-	 * 是否存在串中ID
-	 * @param comId
-	 * @return
-	 */
-	private boolean isExistComId(String comId){
-		HashMap<String, SerialPortVO> map = ConfigCenter.instance().getSerialPortMap() ;
-		if (map.containsKey(comId)) {
-			return true ;
-		}
-		return false ;
-	}
-
 
 }
