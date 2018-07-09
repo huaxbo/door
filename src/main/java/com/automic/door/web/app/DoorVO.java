@@ -1,6 +1,5 @@
 package com.automic.door.web.app;
 
-import com.am.cs12.commu.protocol.amRtu206.cdF1.Data206_cdF1;
 
 public class DoorVO {
 

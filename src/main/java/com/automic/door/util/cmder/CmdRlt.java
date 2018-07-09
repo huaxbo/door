@@ -13,7 +13,7 @@ import java.util.HashMap;
 public class CmdRlt {
 
 	private static HashMap<String,Object[]> result = new HashMap<String,Object[]>(0);
-	private int defaultWaitTime = 10;//等待命令结果时间（s）
+	private int defaultWaitTime = 30;//等待命令结果时间（s）
 	
 	/**
 	 * 
