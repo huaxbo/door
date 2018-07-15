@@ -7,13 +7,13 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.am.cs12.commu.protocol.Data;
 import com.am.cs12.commu.protocol.amRtu206.Code206;
 import com.am.cs12.commu.protocol.amRtu206.cdF1.Param206_cdF1;
 import com.am.cs12.commu.protocol.amRtu206.cdF2.Param206_cdF2;
 import com.am.cs12.commu.protocol.amRtu206.cdF3.Param206_cdF3;
 import com.automic.door.util.cmder.CmdRlt;
 import com.automic.door.util.cmder.CmdSender;
+import com.automic.door.util.cmder.RltCache;
 import com.automic.door.util.pusher.JgPusher;
 import com.automic.global.util.ConstantGlo;
 import com.automic.global.util.mvc.MvcCfg;
@@ -80,6 +80,13 @@ public class DoorController {
     		
     		return vo;
     	}
+    	if(flag == 0){
+        	//查看缓存数据
+        	vo = RltCache.getData(dtuId);
+    		
+        	return vo;
+    	}
+    	
     	//命令发送
     	HashMap<String,Object> params = new HashMap<String,Object>(0);
     	if(code.equals(Code206.cd_F1)){
@@ -98,7 +105,7 @@ public class DoorController {
     	}
     	
     	CmdSender.sendCmd(dtuId, cmdId, code, params);
-    	//命令结果获取
+    	/*//命令结果获取
     	Object rlt = cmder.getCmdRltWait(cmdId, null);
     	if(rlt == null){
     		vo.setSucc(ConstantGlo.NO);
@@ -112,7 +119,9 @@ public class DoorController {
     		log.info("命令回执=" + d.getSubData());
     	}
         
-        return vo;
+        return vo;*/
+    	
+    	return null;//不等待结果回执，交由app轮训查询
     }
     
     /**

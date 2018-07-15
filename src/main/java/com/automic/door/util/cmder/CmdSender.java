@@ -29,7 +29,9 @@ public class CmdSender {
 	 */
 	public static boolean isOnline(String dtuId){
 		
-		return RemoteSessionManager.instance().isConnect(dtuId);
+//		return RemoteSessionManager.instance().isConnect(dtuId);
+		
+		return RemoteSessionManager.instance().getSession(dtuId) != null;
 	}
 	
 	/**

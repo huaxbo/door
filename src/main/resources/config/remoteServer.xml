@@ -8,7 +8,7 @@
 	<!-- 服务id号 -->
     <id>remoteServer</id>
 	<!-- 对外提供服务的端口号 -->
-    <port>8401</port>
+    <port>4401</port>
 	
 	<!-- 
 	     NioSocketAcceptor所应用的IoProcessor用数量，默认是CUP数+1

@@ -20,7 +20,9 @@ import com.am.cs12.commu.core.remoteStatus.MeterStatusManager;
 import com.am.cs12.commu.core.log.AmLog;
 import com.am.cs12.commu.core.CoreServer;
 import com.am.cs12.util.AmConstant;
-import com.automic.door.util.cmder.CmdRlt;
+import com.automic.door.util.cmder.RltCache;
+import com.automic.door.web.app.DoorVO;
+import com.automic.global.util.ConstantGlo;
 
 public class DespatchForGprs {
 	
@@ -187,19 +189,26 @@ public class DespatchForGprs {
 						//命令结果，需要向中心系统发送
 						Data d = rtuDriver.getCenterData();
 						String code = rtuDriver.getDataCode() ;
-						String commandId = null;
+//						String commandId = null;
 						if (d != null) {
 							//向中心系统发送数据
 							if(code == null){
 								log.error("出错，未能从协议分析器驱动得到上报数据的功能码，从而不能得到数据对应命令及命令ID。" ) ;
 							}else{
-								commandId = DealCachCommandForGprsSerail.instance().successCommand(id, code, AmConstant.channel_gprs);
+								/*commandId = DealCachCommandForGprsSerail.instance().successCommand(id, code, AmConstant.channel_gprs);
 								d.setCommandId(commandId) ;
 								if(d.getCommandId() == null){
 									log.warn("警告，未能从命令缓存中得到命令的ID，从而不能在命令结果中设置命令ID！") ;									
 								}else{
 									//命令结果通知
-									CmdRlt.singleInstance().putCmdRlt(commandId, rtuDriver.getCenterData()) ;
+									CmdRlt.singleInstance().putCmdRlt(commandId, d) ;
+								}*/
+								//F1查询结果缓存
+								if(code.equals(Code206.cd_F1)){
+						    		RltCache.updateData(id, d.getSubData());
+						    		log.info("设备[" + id + "]F1结果更新缓存成功！");
+								}else{
+						    		log.warn("设备[" + id + "]" + code + "结果暂无处理！");
 								}
 							}
 							//加入 id

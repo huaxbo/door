@@ -11,6 +11,22 @@ public class DoorVO {
 	private String succ;//成功提示，1:成功、0：失败
 	private String error;//异常提示，提示信息
 	
+	private Long stamp;//时间戳,系统时间long
+	
+	/**
+	 * 
+	 */
+	public DoorVO(){
+		stamp = System.currentTimeMillis();
+	}
+	
+	/**
+	 * 更新时间戳
+	 */
+	public void updateStamp(){
+		stamp = System.currentTimeMillis();
+	}
+	
 	public String getDtuId() {
 		return dtuId;
 	}
@@ -49,6 +65,14 @@ public class DoorVO {
 
 	public void setRltState(Object rltState) {
 		this.rltState = rltState;
+	}
+
+	public Long getStamp() {
+		return stamp;
+	}
+
+	public void setStamp(Long stamp) {
+		this.stamp = stamp;
 	}
 	
 	

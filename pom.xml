@@ -252,8 +252,8 @@
 				<version>2.2</version>
 				<configuration>
 					<url>http://localhost:8081/manager/text</url>
-					<server>tomcat8</server>
-					<port>8090</port>
+					<server>tomcat7</server>
+					<port>8081</port>
 					<path>/door</path>
 				</configuration>
 			</plugin>
