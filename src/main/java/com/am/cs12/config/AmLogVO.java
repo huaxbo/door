@@ -1,5 +1,7 @@
 package com.am.cs12.config;
 
+import java.io.File;
+
 public class AmLogVO {
 
 	//日志文件存储目录(相对目录) -->
@@ -10,7 +12,7 @@ public class AmLogVO {
 	public int fileMaxNum ;
 	
 	public AmLogVO(){
-		this.logDir = "amLog/" ;
+		this.logDir = "amLog/";
 		this.fileMaxSize = 1000 ;
 		this.fileMaxNum = 2 ;
 	}

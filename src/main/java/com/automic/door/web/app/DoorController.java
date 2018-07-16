@@ -76,13 +76,14 @@ public class DoorController {
     	if(!CmdSender.isOnline(dtuId)){
     		vo.setSucc(ConstantGlo.NO);
     		vo.setError("设备尚未上线，命令发送失败！");
-    		log.warn("设备尚未上线，命令发送失败！");
+    		log.warn("设备[" + dtuId + "]尚未上线，命令发送失败！");
     		
     		return vo;
     	}
     	if(flag == 0){
         	//查看缓存数据
         	vo = RltCache.getData(dtuId);
+    		log.info("查询设备[" + dtuId + "]最新有效状态数据！");
     		
         	return vo;
     	}
