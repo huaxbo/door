@@ -83,7 +83,16 @@ public class DoorController {
     	if(flag == 0){
         	//查看缓存数据
         	vo = RltCache.getData(dtuId);
-    		log.info("查询设备[" + dtuId + "]最新有效状态数据！");
+        	
+        	StringBuilder lg = new StringBuilder("查询设备[");
+        	lg.append(dtuId);
+        	lg.append("]最新有效状态数据:");
+        	if(vo.getRltState() != null){
+            	lg.append(vo.getRltState().toString());
+        	}else{
+        		lg.append("null");
+        	}        	
+    		log.info(lg);
     		
         	return vo;
     	}
