@@ -204,6 +204,7 @@ public class DespatchForGprs {
 									CmdRlt.singleInstance().putCmdRlt(commandId, d) ;
 								}*/
 								//F1查询结果缓存
+								DealCachCommandForGprsSerail.instance().successCommand(id, code, AmConstant.channel_gprs);
 								if(code.equals(Code206.cd_F1)){
 						    		RltCache.updateData(id, d.getSubData());
 						    		log.info("设备[" + id + "]F1结果更新缓存成功！");
