@@ -75,8 +75,8 @@ public class DoorController {
     	//查询设备否在线
     	if(!CmdSender.isOnline(dtuId)){
     		vo.setSucc(ConstantGlo.NO);
-    		vo.setError("设备尚未上线，命令发送失败！");
-    		log.warn("设备尚未上线，命令发送失败！");
+    		vo.setError("设备[" + dtuId + "]尚未上线，命令发送失败！");
+    		log.warn("设备[" + dtuId + "]尚未上线，命令发送失败！");
     		
     		return vo;
     	}
@@ -102,14 +102,14 @@ public class DoorController {
     	Object rlt = cmder.getCmdRltWait(cmdId, null);
     	if(rlt == null){
     		vo.setSucc(ConstantGlo.NO);
-    		vo.setError("命令回执超时，请稍后重试...");
-    		log.warn("命令回执超时，请稍后重试...");
+    		vo.setError("设备[" + dtuId + "]命令[" + flag + "]回执超时，请稍后重试...");
+    		log.warn("设备[" + dtuId + "]命令[" + flag + "]回执超时，请稍后重试...");
     	}else{
     		Data d = (Data)rlt;
     		
     		vo.setSucc(ConstantGlo.YES);
     		vo.setRltState(d.getSubData());
-    		log.info("命令回执=" + d.getSubData());
+    		log.info("设备[" + dtuId + "]命令[" + flag + "]回执=" + d.getSubData());
     	}
         
         return vo;

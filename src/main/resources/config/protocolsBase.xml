@@ -22,14 +22,14 @@
 	如果大于这个时间，就认为命令没有回数。
 	取值范围10-600(包括10与600)
 	 -->
-	<sendCommandInterval>10</sendCommandInterval>
+	<sendCommandInterval>1</sendCommandInterval>
 	<!-- 
 	命令超时时长(秒)
 	从缓存的命令最后一次发出或最后一次得到回复数据时开始计时，超过配置的时长后，命令
 	将从命令缓存中被强制清除
 	取值范围maxSendCommandTimes*sendCommandInterval 至 maxSendCommandTimes*sendCommandInterval*10
 	-->
-	<commandTimeout>90</commandTimeout>
+	<commandTimeout>2</commandTimeout>
 	<!-- 
 	下送确认命令与其他命令(包括确认命令)间的时间间隔(秒)
 	取值范围1-5整数
@@ -72,7 +72,7 @@
 	因为雨量计在8时时进行日数据设置，所有在测控终端8时时不能过行较时
 	-->
 	<!-- 是否开启较时功能  true为启动，false为不启动-->
-	<synchronizeClockEnable>true</synchronizeClockEnable>
+	<synchronizeClockEnable>false</synchronizeClockEnable>
 	<!-- 测控终端不允许较时的时钟所处小时(雨量计一般是8时，因为8时时是跨日数据设置时刻) -->
 	<synchronizeClockdeny>8</synchronizeClockdeny>
 	<!-- 最大允许误差(分钟) -->

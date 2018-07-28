@@ -81,9 +81,9 @@ public class ProtocolBaseConfig extends Config{
 							+ "中元素" + ProtocolBaseConstant.sendCommandInterval_key + "配置数值必须是整数！");
 				}
 				tempInt = Integer.parseInt(value) ;
-				if(tempInt < 10 || tempInt > 600){
+				if(tempInt < 1 || tempInt > 600){
 					throw new IllegalArgumentException(filePath
-							+ "中元素" + ProtocolBaseConstant.sendCommandInterval_key + "配置数值必须在10秒(包括)至600秒(包括)间取值！");
+							+ "中元素" + ProtocolBaseConstant.sendCommandInterval_key + "配置数值必须在1秒(包括)至600秒(包括)间取值！");
 				}
 				vo.sendCommandInterval = tempInt ;
 			}else if (name.equals(ProtocolBaseConstant.commandTimeout_key)) {

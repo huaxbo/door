@@ -171,6 +171,13 @@ public class Driver206 extends DriverMeter {
 				// 门操作
 				this.centerData = dp.parseRead_F1(rtuId, b, cp, this.dataCode);
 				action = action.add(action, Action.commandResult);
+				
+				/*this.remoteData = new CommandProtocol206().confirm(
+						rtuId, Code206.cd_02, null, cp.DIVS,
+						this.getKeyPassword(rtuId));
+				this.commandCode = Code206.cd_02;
+				action = action.add(action, Action.remoteConfirm);*/
+				
 			} else if (this.dataCode.equalsIgnoreCase(Code206.cd_F2)) {
 				// 门操作
 				this.centerData = dp.parseRead_F2(rtuId, b, cp, this.dataCode);

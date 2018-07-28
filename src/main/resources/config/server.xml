@@ -42,6 +42,6 @@
     <statusMonitorEnable>false</statusMonitorEnable>
     
     <!-- 是否开启mina自带日志 (开启：true, 不开启：false)-->
-    <minaLogEnable>false</minaLogEnable>
+    <minaLogEnable>true</minaLogEnable>
     
 </configs>
