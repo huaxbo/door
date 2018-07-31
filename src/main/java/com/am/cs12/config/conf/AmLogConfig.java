@@ -51,7 +51,7 @@ public class AmLogConfig  extends Config{
 				if(value == null || value.trim().equals("")){
 					throw new IllegalArgumentException(filePath + "配置有错误，" + AmLogConstant.logDir + "元素未配置！");
 				}else{
-					vo.logDir = Server.serverCurrentPath + value + "\\";
+					vo.logDir = Server.serverCurrentPath + value + File.separator;
 					File dir = new File(vo.logDir);
 					if (!dir.exists()) {
 						dir.mkdir();

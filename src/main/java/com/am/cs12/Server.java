@@ -1,5 +1,6 @@
 package com.am.cs12;
 
+import java.io.File;
 import java.io.IOException;
 
 import com.am.cs12.commu.core.CoreServer;
@@ -15,12 +16,16 @@ public class Server {
 
 	public static String serverCurrentPath = System.getProperty("user.dir") ;
 	static{
-		if(serverCurrentPath == null || serverCurrentPath.equals("")){
-			serverCurrentPath = "C:\\" ;
-		}
-		if(!serverCurrentPath.equals("\\")){
-			serverCurrentPath += "\\" ;
-		}
+		 if ((serverCurrentPath == null) || (serverCurrentPath.equals(""))) {
+		      if (File.separator.equals("/"))
+		        serverCurrentPath = "/usr/local/";
+		      else {
+		        serverCurrentPath = "C:\\";
+		      }
+		    }
+		    if (!serverCurrentPath.equals(File.separator)) {
+		      serverCurrentPath += File.separator;
+		    }
 		//log4j.properties文件中引用
 		System.setProperty("WORKDIR" , serverCurrentPath) ;
 	}
