@@ -21,7 +21,7 @@ public class RemoteIoHandler extends IoHandlerAdapter {
      * 会话open时回调的方法 
      */
     public void sessionOpened(IoSession session) throws Exception {
-    	LOGGER.info("建立新连接：\n" + session.getRemoteAddress());
+    	LOGGER.info("@@@建立新连接：" + session.getRemoteAddress());
     }
 
     /**

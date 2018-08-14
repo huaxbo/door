@@ -78,6 +78,8 @@ public class DoorController {
     	//指令下发
     	CmdRlt cmder = CmdRlt.singleInstance();
     	String cmdId = cmder.generateCmdId();//command id
+
+    	log.info("APP请求设备[" + dtuId + "]实时指令：" + code + "/" + flag);
     	
     	//查询设备否在线
     	if(!CmdSender.isOnline(dtuId)){
@@ -87,7 +89,6 @@ public class DoorController {
     		
     		return vo;
     	}
-    	log.info("APP请求设备[" + dtuId + "]实时指令：" + code + "/" + flag);
     	//命令发送
     	HashMap<String,Object> params = new HashMap<String,Object>(0);
     	if(code.equals(Code206.cd_F1)){
