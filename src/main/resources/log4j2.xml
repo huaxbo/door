@@ -5,17 +5,18 @@
 		<property name="LOG_HOME">sysLogs/door</property>
 		<!-- 单个日志大小 -->
 		<property name="LOG_SIZE">10MB</property>
+		<property name="LOG_P">[%d{dd HH:mm:ss:SSS}] [%p] %F:%L - %m%n</property>
 	</properties>
 	<appenders>
 		<console name="Console" target="SYSTEM_OUT">
-			<PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n" />
+			<PatternLayout pattern="${LOG_P}" />
 		</console>
 
 		<RollingFile name="RollingFileInfo" fileName="${LOG_HOME}/info.log"
 			filePattern="${LOG_HOME}/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log.gz">
 			<ThresholdFilter level="info" onMatch="ACCEPT"
 				onMismatch="DENY" />
-			<PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n" />
+			<PatternLayout pattern="[%d{dd HH:mm:ss:SSS}] [%p] %F:%L - %m%n" />
 			<Policies>
 				<TimeBasedTriggeringPolicy />
 				<SizeBasedTriggeringPolicy size="${LOG_SIZE}" />
@@ -26,7 +27,7 @@
 			filePattern="${LOG_HOME}/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log.gz">
 			<ThresholdFilter level="warn" onMatch="ACCEPT"
 				onMismatch="DENY" />
-			<PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n" />
+			<PatternLayout pattern="${LOG_P}" />
 			<Policies>
 				<TimeBasedTriggeringPolicy />
 				<SizeBasedTriggeringPolicy size="${LOG_SIZE}" />
@@ -37,7 +38,7 @@
 			filePattern="${LOG_HOME}/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log.gz">
 			<ThresholdFilter level="error" onMatch="ACCEPT"
 				onMismatch="DENY" />
-			<PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n" />
+			<PatternLayout pattern="${LOG_P}" />
 			<Policies>
 				<TimeBasedTriggeringPolicy />
 				<SizeBasedTriggeringPolicy size="${LOG_SIZE}" />

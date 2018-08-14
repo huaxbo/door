@@ -87,6 +87,7 @@ public class DoorController {
     		
     		return vo;
     	}
+    	log.info("APP请求设备[" + dtuId + "]实时指令：" + code + "/" + flag);
     	//命令发送
     	HashMap<String,Object> params = new HashMap<String,Object>(0);
     	if(code.equals(Code206.cd_F1)){

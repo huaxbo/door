@@ -645,6 +645,10 @@ public class DealCachCommandForGprsSerail {
 				private void deal(IoSession session , CommandQueueForGprsSerial queue){
 					synchronized(queue){
 						while(needDeal){
+							RemoteSessionManager rsm = RemoteSessionManager.instance() ;
+							//有可处理的命令
+							session = rsm.getSession(id) ;
+							
 							//每次处理，每个CommandNode必须有结果：清除队列或标识不处理
 							//得到缓存中可以处理的命令数
 							int comNum = queue.sizeOfCanDeal() ;
@@ -846,7 +850,7 @@ public class DealCachCommandForGprsSerail {
 							MeterStatusManager.instance().sendMeterData(id, ((byte[])node.commandData).length) ;
 							try {
 								log.info("成功向测控器发送了命令(id=" + node.id + "/命令ID=" + node.commandId + "/功能码=" + node.code + "/已经发送次数:" + node.sendTimes + ")。");
-								log.info (">>>>>>>>发向测控终端(ID:" + node.id + ")命令:" + new UtilProtocol().byte2Hex((byte[])node.commandData , true).toUpperCase()) ;
+								log.info (">>>>>>>>发向测控终端(ID:" + node.id + ")[" + se.getRemoteAddress() + "]命令:" + new UtilProtocol().byte2Hex((byte[])node.commandData , true).toUpperCase()) ;
 							} catch (Exception e) {
 							}
 						}

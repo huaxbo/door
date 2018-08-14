@@ -48,18 +48,19 @@ public class DespatchForGprs {
 		RemoteSessionManager rsm = RemoteSessionManager.instance() ;
 		if(!rsm.hasSession(session)){
 			//会话管理器中不存在此会话，说明刚建立网络连接，根据通信规约，此数据应该是上线数据
-			log.info("<<<<<<<<收到测控器数据:" + dataHex) ;
 			if(this.dealOnLine(session, data, rsm)){
 				id = rsm.getRtuId(session) ;
 				this.saveMeterStatus(session, id, data) ;
-				this.dealData(id, data, dataHex) ;	
+				this.dealData(id, data, dataHex,session.getRemoteAddress()) ;	
 				AmLog.log(id, "上线数据:" + dataHex) ;
+			}else{
+				log.info("<<<<<<<<收到测控器数据[" + session.getRemoteAddress() + "]:" + dataHex) ;
 			}
 		}else{
 			//会话管理器中存在此会话，
 			id = rsm.getRtuId(session) ;
 			this.saveMeterStatus(session, id, data) ;
-			this.dealData(id, data, dataHex) ;	
+			this.dealData(id, data, dataHex,session.getRemoteAddress()) ;	
 			AmLog.log(id, "上报数据:" + dataHex) ;
 		}
 	}
@@ -114,8 +115,8 @@ public class DespatchForGprs {
 	 * @param data
 	 * @param dataHex
 	 */
-	protected void dealData(String id , byte[] data , String dataHex){
-		this.threadPoolDealData(id, data, dataHex) ;
+	protected void dealData(String id , byte[] data , String dataHex,SocketAddress remoteAddr){
+		this.threadPoolDealData(id, data, dataHex,remoteAddr) ;
 	}
 
 
@@ -125,7 +126,7 @@ public class DespatchForGprs {
 	 * @param data
 	 * @param dataHex
 	 */
-	protected void threadPoolDealData(final String id, final byte[] data, final String dataHex){
+	protected void threadPoolDealData(final String id, final byte[] data, final String dataHex,final SocketAddress remoteAddr){
 		try {
 			CoreServer.remotePool.SetThreadJob(new ACThreadJob() {
 				public void stop(){}
@@ -134,7 +135,7 @@ public class DespatchForGprs {
 						log.error("严重错误，未能从网络会话中得到RTU ID，从而不能处理其上报数据。") ;
 						return ;
 					}
-					this.dealData(id, data, dataHex) ;
+					this.dealData(id, data, dataHex,remoteAddr) ;
 				}
 				/**
 				 * 处理数据
@@ -143,8 +144,8 @@ public class DespatchForGprs {
 				 * @param data
 				 * @param rsm
 				 */
-				private void dealData(String id, byte[] data , String dataHex){
-					log.info("<<<<<<<<收到测控终端(ID:" + id + ")数据:" + dataHex) ;
+				private void dealData(String id, byte[] data , String dataHex,SocketAddress remoteAddr){
+					log.info("<<<<<<<<收到测控终端(ID:" + id + ")[" + remoteAddr + "]数据:" + dataHex) ;
 					DriverMeter rtuDriver = this.getRtuDriver(id) ;
 					if(rtuDriver == null){
 						log.error("严重错误，未能得到 ID为" + id + "的测控终端协议驱动。") ;
