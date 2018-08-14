@@ -12,7 +12,9 @@ import com.am.cs12.commu.protocol.amRtu206.Code206;
 import com.am.cs12.commu.protocol.amRtu206.cdF1.Param206_cdF1;
 import com.am.cs12.commu.protocol.amRtu206.cdF2.Param206_cdF2;
 import com.am.cs12.commu.protocol.amRtu206.cdF3.Param206_cdF3;
+import com.am.util.DateTime;
 import com.automic.door.util.cmder.CmdRlt;
+import com.automic.door.util.cmder.CmdRltCache;
 import com.automic.door.util.cmder.CmdSender;
 import com.automic.door.util.pusher.JgPusher;
 import com.automic.global.util.ConstantGlo;
@@ -28,50 +30,55 @@ public class DoorController {
     private static final String act_prefix = "door";
     
     /**
-     * 查询DTUID
-     * @param dtuId DTUID
-     * @return
+     * 门在线状态
+     * @param dtuId
+     * @return 1在线、0断线
      */
-    @RequestMapping("/" + act_prefix + "/getDtuId" + MvcCfg.action_suffix)
-    public DoorVO getDtuId(String dtuId){
-    	CmdRlt cmder = CmdRlt.singleInstance();
-    	String cmdId = cmder.generateCmdId();//command id
-    	DoorVO vo = new DoorVO();
-    	vo.setDtuId(dtuId);
-    	//查询设备否在线
-    	if(!CmdSender.isOnline(dtuId)){
-    		vo.setSucc(ConstantGlo.NO);
-    		vo.setError("设备尚未上线，命令发送失败！");
-    		
-    		return vo;
-    	}
-    	//命令发送
-    	HashMap<String,Object> params = new HashMap<String,Object>(0);
-    	CmdSender.sendCmd(dtuId, cmdId, Code206.cd_50, params);
-    	//命令结果获取
-    	Object rlt = cmder.getCmdRltWait(cmdId, null);
-    	if(rlt == null){
-    		vo.setSucc(ConstantGlo.NO);
-    		vo.setError("命令回执超时，请稍后重试...");
-    	}else{
-    		vo.setSucc(ConstantGlo.YES);
-            vo.setRltDtuId(dtuId);
-    	}
-        
-        return vo;
+    @RequestMapping("/" + act_prefix + "/online" + MvcCfg.action_suffix)
+    public Integer online(String dtuId){
+    	
+    	return CmdSender.isOnline(dtuId) ? 1 : 0;
     }
     
-	/**
+	
+    /**
      * 门控操作
      * @param dtuId
+     * @param code 功能码 F1/F2/F3
+     * @param flag 指令类别：0查询、1开、2关、3停
+     * @param tp 查询类别：1操作查询、0常规查询
      * @return
      */
     @RequestMapping("/" + act_prefix + "/state" + MvcCfg.action_suffix)
-    public DoorVO state(String dtuId,String code,Integer flag){
-    	CmdRlt cmder = CmdRlt.singleInstance();
-    	String cmdId = cmder.generateCmdId();//command id
+    public DoorVO state(String dtuId,String code,Integer flag,Integer tp){
     	DoorVO vo = new DoorVO();
     	vo.setDtuId(dtuId);
+    	
+    	//时间有效校验
+    	String ymd = DateTime.yyyy_MM_dd();
+    	if(ymd.compareTo("2018-09-01") > 0){
+    		vo.setError("授权过期！");
+    		
+    		return vo;
+    	}
+    	//缓存结果
+    	if(flag == 0 && tp == 1){
+        	Data cd = CmdRltCache.singleInstance().getRlt(dtuId);
+        	if(cd != null){
+        		vo.setSucc(ConstantGlo.YES);
+        		vo.setRltState(cd.getSubData());
+        		log.info("设备[" + dtuId + "]命令[" + flag + "]缓存结果回执=" + cd.getSubData());
+        		
+        		return vo;
+        	}else{
+        		log.info("设备[" + dtuId + "]命令[" + flag + "]无缓存指令，实时发送指令！");
+        	}
+    	}
+    	
+    	//指令下发
+    	CmdRlt cmder = CmdRlt.singleInstance();
+    	String cmdId = cmder.generateCmdId();//command id
+    	
     	//查询设备否在线
     	if(!CmdSender.isOnline(dtuId)){
     		vo.setSucc(ConstantGlo.NO);
@@ -144,4 +151,5 @@ public class DoorController {
     	
     	return vo;
     }
+    
 }

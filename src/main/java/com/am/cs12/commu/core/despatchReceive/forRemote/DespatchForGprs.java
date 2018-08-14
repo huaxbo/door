@@ -21,6 +21,7 @@ import com.am.cs12.commu.core.log.AmLog;
 import com.am.cs12.commu.core.CoreServer;
 import com.am.cs12.util.AmConstant;
 import com.automic.door.util.cmder.CmdRlt;
+import com.automic.door.util.cmder.CmdRltCache;
 
 public class DespatchForGprs {
 	
@@ -47,7 +48,7 @@ public class DespatchForGprs {
 		RemoteSessionManager rsm = RemoteSessionManager.instance() ;
 		if(!rsm.hasSession(session)){
 			//会话管理器中不存在此会话，说明刚建立网络连接，根据通信规约，此数据应该是上线数据
-			log.info("\n<<<<<<<<收到测控器数据:" + dataHex) ;
+			log.info("<<<<<<<<收到测控器数据:" + dataHex) ;
 			if(this.dealOnLine(session, data, rsm)){
 				id = rsm.getRtuId(session) ;
 				this.saveMeterStatus(session, id, data) ;
@@ -143,7 +144,7 @@ public class DespatchForGprs {
 				 * @param rsm
 				 */
 				private void dealData(String id, byte[] data , String dataHex){
-					log.info("\n<<<<<<<<收到测控终端(ID:" + id + ")数据:" + dataHex) ;
+					log.info("<<<<<<<<收到测控终端(ID:" + id + ")数据:" + dataHex) ;
 					DriverMeter rtuDriver = this.getRtuDriver(id) ;
 					if(rtuDriver == null){
 						log.error("严重错误，未能得到 ID为" + id + "的测控终端协议驱动。") ;
@@ -199,7 +200,9 @@ public class DespatchForGprs {
 									log.warn("警告，未能从命令缓存中得到命令的ID，从而不能在命令结果中设置命令ID！") ;									
 								}else{
 									//命令结果通知
-									CmdRlt.singleInstance().putCmdRlt(commandId, rtuDriver.getCenterData()) ;
+									CmdRlt.singleInstance().putCmdRlt(commandId, d) ;
+									//更新缓存
+									CmdRltCache.singleInstance().pushRlt(d.getId(), d);
 								}
 							}
 							//加入 id

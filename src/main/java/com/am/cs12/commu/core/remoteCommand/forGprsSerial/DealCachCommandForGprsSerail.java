@@ -845,7 +845,8 @@ public class DealCachCommandForGprsSerail {
 							//保存测控终端状态
 							MeterStatusManager.instance().sendMeterData(id, ((byte[])node.commandData).length) ;
 							try {
-								log.info("成功向测控器发送了命令(id=" + node.id + "/命令ID=" + node.commandId + "/功能码=" + node.code + "/已经发送次数:" + node.sendTimes + ")。\n>>>>>>>>发向测控终端(ID:" + node.id + ")命令:" + new UtilProtocol().byte2Hex((byte[])node.commandData , true).toUpperCase()) ;
+								log.info("成功向测控器发送了命令(id=" + node.id + "/命令ID=" + node.commandId + "/功能码=" + node.code + "/已经发送次数:" + node.sendTimes + ")。");
+								log.info (">>>>>>>>发向测控终端(ID:" + node.id + ")命令:" + new UtilProtocol().byte2Hex((byte[])node.commandData , true).toUpperCase()) ;
 							} catch (Exception e) {
 							}
 						}
