@@ -16,6 +16,7 @@ import com.am.cs12.commu.core.CoreServer;
 import com.am.cs12.commu.protocol.util.UtilProtocol;
 import com.am.cs12.config.*;
 import com.am.cs12.util.AmConstant;
+import com.automic.door.web.app.DoorController;
 
 public class DealCachCommandForGprsSerail {
 	
@@ -648,7 +649,10 @@ public class DealCachCommandForGprsSerail {
 							RemoteSessionManager rsm = RemoteSessionManager.instance() ;
 							//有可处理的命令
 							session = rsm.getSession(id) ;
-							
+							if(session == null){
+								
+								return ;
+							}
 							//每次处理，每个CommandNode必须有结果：清除队列或标识不处理
 							//得到缓存中可以处理的命令数
 							int comNum = queue.sizeOfCanDeal() ;

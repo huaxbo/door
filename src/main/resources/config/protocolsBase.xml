@@ -22,14 +22,14 @@
 	如果大于这个时间，就认为命令没有回数。
 	取值范围10-600(包括10与600)
 	 -->
-	<sendCommandInterval>1</sendCommandInterval>
+	<sendCommandInterval>2</sendCommandInterval>
 	<!-- 
 	命令超时时长(秒)
 	从缓存的命令最后一次发出或最后一次得到回复数据时开始计时，超过配置的时长后，命令
 	将从命令缓存中被强制清除
 	取值范围maxSendCommandTimes*sendCommandInterval 至 maxSendCommandTimes*sendCommandInterval*10
 	-->
-	<commandTimeout>2</commandTimeout>
+	<commandTimeout>3</commandTimeout>
 	<!-- 
 	下送确认命令与其他命令(包括确认命令)间的时间间隔(秒)
 	取值范围1-5整数
@@ -40,15 +40,15 @@
 	当取值为0时，表示不进行最大连续命令失败次数控制，即不论失败多少次，不做DTU在线状态改变
 	取值范围 0以上整数
 	-->
-	<maxContinueFailCommandTimes>3</maxContinueFailCommandTimes>
+	<maxContinueFailCommandTimes>2</maxContinueFailCommandTimes>
 	<!-- 
 	测控终端网络联接最小无上传数据的时长，达到这个时长，即认为测控终端已经不在线。
 	这个时间要根据具体项目而定，不同项目所在地区不同，测控终端的最大心跳间隔时长也不同，
 	测控终端的最大心跳间隔时长，也就是允许的测控终端网络联接最小无上传数据时间,
 	所以此值应该大于所有测控终端中最大心跳间隔时长。
-	单位(分钟)，取值范围(1到65)(取60以上，目的是：如果测控终端无心跳，则可以用整点上报数据作最小上传数据时间间隔)
+	单位(s)，取值范围(1到3900)(取3600以上，目的是：如果测控终端无心跳，则可以用整点上报数据作最小上传数据时间间隔)
 	-->
-	<minMeterConnectIdleInterval>5</minMeterConnectIdleInterval>
+	<minMeterConnectIdleInterval>30</minMeterConnectIdleInterval>
 	
 	<!-- 
 	通过"测控终端网络联接最小无上传数据的时长"规则，判断测控终端不在线时，是否关闭网络连接
@@ -56,14 +56,14 @@
 	true:关闭
 	false:不关闭
 	-->
-	<checkConnectOffCloseSocketForIdleInterval>true</checkConnectOffCloseSocketForIdleInterval>
+	<checkConnectOffCloseSocketForIdleInterval>false</checkConnectOffCloseSocketForIdleInterval>
 	<!-- 
 	通过"最大连续命令失败次数"规则，判断测控终端不在线时，是否关闭网络连接
 	配置值只能为true或false
 	true:关闭
 	false:不关闭
 	-->
-	<checkConnectOffCloseSocketForContinueFailCommandTimes>true</checkConnectOffCloseSocketForContinueFailCommandTimes>
+	<checkConnectOffCloseSocketForContinueFailCommandTimes>false</checkConnectOffCloseSocketForContinueFailCommandTimes>
 	
 	<!-- 
 	通信服务器自动较时测控终端时钟，

@@ -29,7 +29,7 @@ public class MonitorWatcher extends ACTaskJob {
 		MeterStatus svo = null ;
 		ProtocolBaseVO pb = ProtocolBaseVO.instance() ;
 		int maxComFailTimes = pb.maxContinueFailCommandTimes ;
-		int minConnIdelInterval = pb.minMeterConnectIdleInterval * 60 * 1000 ;
+		int minConnIdelInterval = pb.minMeterConnectIdleInterval * 1000 ;
 		boolean closeConn1 = pb.checkConnectOffCloseSocketForIdleInterval ;
 		boolean closeConn2 = pb.checkConnectOffCloseSocketForContinueFailCommandTimes ;
 		

@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.am.cs12.commu.core.remoteCommand.forGprsSerial.CommandTypeForGprsSerial;
 import com.am.cs12.commu.protocol.Data;
 import com.am.cs12.commu.protocol.amRtu206.Code206;
 import com.am.cs12.commu.protocol.amRtu206.cdF1.Param206_cdF1;
@@ -28,7 +29,7 @@ public class DoorController {
      * url前缀--自定义
      */
     private static final String act_prefix = "door";
-    
+    public static int counter = 0;
     /**
      * 门在线状态
      * @param dtuId
@@ -62,17 +63,18 @@ public class DoorController {
     		return vo;
     	}
     	//缓存结果
-    	if(flag == 0 && tp == 1){
+    	if(flag == 0 && tp == 0){
         	Data cd = CmdRltCache.singleInstance().getRlt(dtuId);
         	if(cd != null){
         		vo.setSucc(ConstantGlo.YES);
         		vo.setRltState(cd.getSubData());
         		log.info("设备[" + dtuId + "]命令[" + flag + "]缓存结果回执=" + cd.getSubData());
-        		
-        		return vo;
         	}else{
         		log.info("设备[" + dtuId + "]命令[" + flag + "]无缓存指令，实时发送指令！");
+        		
         	}
+        	
+    		return vo;
     	}
     	
     	//指令下发
@@ -105,8 +107,8 @@ public class DoorController {
         	param.setState(flag);
         	params.put(Param206_cdF3.KEY, param);
     	}
-    	
-    	CmdSender.sendCmd(dtuId, cmdId, code, params);
+
+    	CmdSender.sendCmd(dtuId, cmdId, code, params,getCmdPriority(flag));
     	//命令结果获取
     	Object rlt = cmder.getCmdRltWait(cmdId, null);
     	if(rlt == null){
@@ -120,10 +122,14 @@ public class DoorController {
     		vo.setRltState(d.getSubData());
     		log.info("设备[" + dtuId + "]命令[" + flag + "]回执=" + d.getSubData());
     	}
-        
+
         return vo;
     }
     
+    private CommandTypeForGprsSerial.CommandSendPriority getCmdPriority(int flag){
+    	
+    	return flag >0 ? CommandTypeForGprsSerial.CommandSendPriority.yes : CommandTypeForGprsSerial.CommandSendPriority.no;
+    }
     /**
      * 广告推送
      * @param dtuId

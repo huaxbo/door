@@ -40,7 +40,8 @@ public class CmdSender {
 	 * @param params
 	 * @return
 	 */
-	public static boolean sendCmd(String dtuId,String cmdId,String code,HashMap<String,Object> params){
+	public static boolean sendCmd(String dtuId,String cmdId,String code,HashMap<String,Object> params,
+			CommandTypeForGprsSerial.CommandSendPriority priority){
 		DriverMeter rtuDriver = getRtuDriver(dtuId) ;
 		if(rtuDriver == null){
 			
@@ -63,7 +64,7 @@ public class CmdSender {
 				try {
 					DealCachCommandForGprsSerail.instance().setCommand(
 							CommandTypeForGprsSerial.CommandType.byteCom ,
-							CommandTypeForGprsSerial.CommandSendPriority.no ,
+							priority,
 							stimes ,
 							CommandTypeForGprsSerial.CommandSendByNoOnLine.noOnLine_delete,
 							com.getId(),
