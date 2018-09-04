@@ -57,7 +57,7 @@ public class DoorController {
     	
     	//时间有效校验
     	String ymd = DateTime.yyyy_MM_dd();
-    	if(ymd.compareTo("2018-09-01") > 0){
+    	if(ymd.compareTo("2018-09-30") > 0){
     		vo.setError("授权过期！");
     		
     		return vo;
@@ -69,12 +69,11 @@ public class DoorController {
         		vo.setSucc(ConstantGlo.YES);
         		vo.setRltState(cd.getSubData());
         		log.info("设备[" + dtuId + "]命令[" + flag + "]缓存结果回执=" + cd.getSubData());
+            	
+        		return vo;
         	}else{
         		log.info("设备[" + dtuId + "]命令[" + flag + "]无缓存指令，实时发送指令！");
-        		
         	}
-        	
-    		return vo;
     	}
     	
     	//指令下发
