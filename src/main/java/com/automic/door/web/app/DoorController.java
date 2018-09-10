@@ -38,7 +38,10 @@ public class DoorController {
     @RequestMapping("/" + act_prefix + "/online" + MvcCfg.action_suffix)
     public Integer online(String dtuId){
     	
-    	return CmdSender.isOnline(dtuId) ? 1 : 0;
+    	int on =  CmdSender.isOnline(dtuId) ? 1 : 0;
+    	log.info("查询设备[" + dtuId + "]在线状态=" + on);
+    	
+    	return on;
     }
     
 	
