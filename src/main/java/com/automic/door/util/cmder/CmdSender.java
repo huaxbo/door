@@ -38,10 +38,13 @@ public class CmdSender {
 	 * @param cmdId
 	 * @param code
 	 * @param params
+	 * @param priority 优先级
+	 * @param password 密码
 	 * @return
 	 */
 	public static boolean sendCmd(String dtuId,String cmdId,String code,HashMap<String,Object> params,
-			CommandTypeForGprsSerial.CommandSendPriority priority){
+			CommandTypeForGprsSerial.CommandSendPriority priority,
+			Integer[] password){
 		DriverMeter rtuDriver = getRtuDriver(dtuId) ;
 		if(rtuDriver == null){
 			
@@ -49,7 +52,8 @@ public class CmdSender {
 		}
 		Command com = buildCommand(dtuId,cmdId,params,code);
 		//通过GPRS或卫星能够即时发命令(字节命令)了
-		Action action = rtuDriver.createCommand(com,new Integer[]{1,2}) ;
+		
+		Action action = rtuDriver.createCommand(com,password) ;
 		if (action.has(Action.remoteCommand)) {
 			//动作类型是向远端发送数据
 			byte[] buf = rtuDriver.getRemoteData() ;
@@ -100,7 +104,8 @@ public class CmdSender {
 	 * @param code
 	 * @return
 	 */
-	private static Command buildCommand(String dtuId,String cmdId,HashMap<String,Object> params,String code){
+	private static Command buildCommand(String dtuId,String cmdId,HashMap<String,Object> params,
+			String code){
 		Command comd = new Command() ;
 		comd.setId(cmdId) ;
 		comd.setType(CommandType.outerCommand) ;

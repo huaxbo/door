@@ -41,7 +41,7 @@ public class AuxProtocol {
 	 * @throws Exception
 	 */
 	public byte[] createPassword(byte[] b , int site_password , int[] p_key_value) throws Exception{
-		if(p_key_value == null || p_key_value.length != 2){
+		/*if(p_key_value == null || p_key_value.length != 2){
 			throw new Exception("RTU密钥算法不能为空!") ;
 		}
 		if(p_key_value[0] > 9 || p_key_value[0] < 0){
@@ -65,10 +65,10 @@ public class AuxProtocol {
 		}
 		
 		byte[] bkey = u.string2BCD(key) ;
-		byte[] bpass = u.string2BCD(pass) ;
+		byte[] bpass = u.string2BCD(pass) ;*/
 		
-		b[site_password] = 1;//bkey[0] ;
-		b[site_password + 1] = 2;//bpass[0] ;
+		b[site_password] = (byte)p_key_value[0];//bkey[0] ;
+		b[site_password + 1] = (byte)p_key_value[1];//bpass[0] ;
 
 		return b ;
 	}

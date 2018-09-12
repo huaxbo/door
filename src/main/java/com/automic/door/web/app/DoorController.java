@@ -13,6 +13,7 @@ import com.am.cs12.commu.protocol.amRtu206.Code206;
 import com.am.cs12.commu.protocol.amRtu206.cdF1.Param206_cdF1;
 import com.am.cs12.commu.protocol.amRtu206.cdF2.Param206_cdF2;
 import com.am.cs12.commu.protocol.amRtu206.cdF3.Param206_cdF3;
+import com.am.cs12.commu.protocol.util.UtilProtocol;
 import com.am.util.DateTime;
 import com.automic.door.util.cmder.CmdRlt;
 import com.automic.door.util.cmder.CmdRltCache;
@@ -51,10 +52,12 @@ public class DoorController {
      * @param code 功能码 F1/F2/F3
      * @param flag 指令类别：0查询、1开、2关、3停
      * @param tp 查询类别：1操作查询、0常规查询
+     * @param password 密码：报文数据PWD，hex字符串
      * @return
      */
     @RequestMapping("/" + act_prefix + "/state" + MvcCfg.action_suffix)
-    public DoorVO state(String dtuId,String code,Integer flag,Integer tp){
+    public DoorVO state(String dtuId,String code,Integer flag,Integer tp,String password){
+    	
     	DoorVO vo = new DoorVO();
     	vo.setDtuId(dtuId);
     	
@@ -110,7 +113,7 @@ public class DoorController {
         	params.put(Param206_cdF3.KEY, param);
     	}
 
-    	CmdSender.sendCmd(dtuId, cmdId, code, params,getCmdPriority(flag));
+    	CmdSender.sendCmd(dtuId, cmdId, code, params,getCmdPriority(flag),getPassword(password));
     	//命令结果获取
     	Object rlt = cmder.getCmdRltWait(cmdId, null);
     	if(rlt == null){
@@ -128,10 +131,31 @@ public class DoorController {
         return vo;
     }
     
+    /**
+     * 获取优先级
+     * @param flag
+     * @return
+     */
     private CommandTypeForGprsSerial.CommandSendPriority getCmdPriority(int flag){
     	
-    	return flag >0 ? CommandTypeForGprsSerial.CommandSendPriority.yes : CommandTypeForGprsSerial.CommandSendPriority.no;
+    	return flag > 0 ? CommandTypeForGprsSerial.CommandSendPriority.yes : CommandTypeForGprsSerial.CommandSendPriority.no;
     }
+    
+    /**
+     * 获取密码
+     * @param passowrd
+     * @return
+     */
+    private Integer[] getPassword(String password){
+    	if(password == null || password.equals("")){
+    		
+    		password = "0000";
+    	}
+    	byte[] tmp = new UtilProtocol().hex2Bytes(password);
+    	
+    	return new Integer[]{tmp[0] & 0xFF,tmp[1] & 0xFF};
+    }
+    
     /**
      * 广告推送
      * @param dtuId
