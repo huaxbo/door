@@ -48,7 +48,7 @@
 	所以此值应该大于所有测控终端中最大心跳间隔时长。
 	单位(s)，取值范围(1到3900)(取3600以上，目的是：如果测控终端无心跳，则可以用整点上报数据作最小上传数据时间间隔)
 	-->
-	<minMeterConnectIdleInterval>30</minMeterConnectIdleInterval>
+	<minMeterConnectIdleInterval>10</minMeterConnectIdleInterval>
 	
 	<!-- 
 	通过"测控终端网络联接最小无上传数据的时长"规则，判断测控终端不在线时，是否关闭网络连接

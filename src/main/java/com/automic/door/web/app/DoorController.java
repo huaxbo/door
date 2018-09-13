@@ -15,6 +15,7 @@ import com.am.cs12.commu.protocol.amRtu206.cdF2.Param206_cdF2;
 import com.am.cs12.commu.protocol.amRtu206.cdF3.Param206_cdF3;
 import com.am.cs12.commu.protocol.util.UtilProtocol;
 import com.am.util.DateTime;
+import com.automic.door.util.cmder.CmdPwdCache;
 import com.automic.door.util.cmder.CmdRlt;
 import com.automic.door.util.cmder.CmdRltCache;
 import com.automic.door.util.cmder.CmdSender;
@@ -96,6 +97,18 @@ public class DoorController {
     		
     		return vo;
     	}
+    	
+    	//实时命令密码适配
+    	String pwd = CmdPwdCache.singleInstance().getPwd(dtuId);
+    	if(pwd == null || !pwd.equals(password.toUpperCase())){
+    		vo.setSucc(ConstantGlo.NO);
+    		vo.setError("设备[" + dtuId + "]需要重新学习，命令发送失败！");
+    		log.warn("设备[" + dtuId + "]密码不匹配需要重新学习[设备密码=" + pwd 
+    				+ ",app提供密码=" + password.toUpperCase() + "]，命令发送失败！");
+    		
+    		return vo;
+    	}
+    	
     	//命令发送
     	HashMap<String,Object> params = new HashMap<String,Object>(0);
     	if(code.equals(Code206.cd_F1)){
@@ -112,7 +125,7 @@ public class DoorController {
         	param.setState(flag);
         	params.put(Param206_cdF3.KEY, param);
     	}
-
+    	
     	CmdSender.sendCmd(dtuId, cmdId, code, params,getCmdPriority(flag),getPassword(password));
     	//命令结果获取
     	Object rlt = cmder.getCmdRltWait(cmdId, null);
@@ -129,31 +142,6 @@ public class DoorController {
     	}
 
         return vo;
-    }
-    
-    /**
-     * 获取优先级
-     * @param flag
-     * @return
-     */
-    private CommandTypeForGprsSerial.CommandSendPriority getCmdPriority(int flag){
-    	
-    	return flag > 0 ? CommandTypeForGprsSerial.CommandSendPriority.yes : CommandTypeForGprsSerial.CommandSendPriority.no;
-    }
-    
-    /**
-     * 获取密码
-     * @param passowrd
-     * @return
-     */
-    private Integer[] getPassword(String password){
-    	if(password == null || password.equals("")){
-    		
-    		password = "0000";
-    	}
-    	byte[] tmp = new UtilProtocol().hex2Bytes(password);
-    	
-    	return new Integer[]{tmp[0] & 0xFF,tmp[1] & 0xFF};
     }
     
     /**
@@ -184,6 +172,31 @@ public class DoorController {
     	}
     	
     	return vo;
+    }
+    
+    /**
+     * 获取优先级
+     * @param flag
+     * @return
+     */
+    private CommandTypeForGprsSerial.CommandSendPriority getCmdPriority(int flag){
+    	
+    	return flag > 0 ? CommandTypeForGprsSerial.CommandSendPriority.yes : CommandTypeForGprsSerial.CommandSendPriority.no;
+    }
+    
+    /**
+     * 获取密码
+     * @param passowrd
+     * @return
+     */
+    private Integer[] getPassword(String password){
+    	if(password == null || password.equals("")){
+    		
+    		password = "0000";
+    	}
+    	byte[] tmp = new UtilProtocol().hex2Bytes(password);
+    	
+    	return new Integer[]{tmp[0] & 0xFF,tmp[1] & 0xFF};
     }
     
 }

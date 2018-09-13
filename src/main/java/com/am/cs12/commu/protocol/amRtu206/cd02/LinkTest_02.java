@@ -6,6 +6,8 @@ import org.apache.logging.log4j.LogManager;
 import com.am.cs12.commu.protocol.Data;
 import com.am.cs12.commu.protocol.amRtu206.common.*;
 import com.am.cs12.commu.protocol.amRtu206.util.Constant;
+import com.am.cs12.commu.protocol.util.UtilProtocol;
+import com.automic.door.util.cmder.CmdPwdCache;
 
 /**
  * 链路检测（AFN=02H）
@@ -23,7 +25,7 @@ public class LinkTest_02 extends ProtocolAbstract{
 	 * @throws Exception
 	 */
 	public Data parseData(String rtuId, byte[] b, ControlProtocol cp, String dataCode) throws Exception {
-		Data d = this.doParse(b, cp, dataCode) ;
+		Data d = this.doParse(b, cp, dataCode,rtuId) ;
 		d.setId(rtuId) ;
 		d.setCode(dataCode) ;
 		
@@ -36,7 +38,7 @@ public class LinkTest_02 extends ProtocolAbstract{
 	 * @return
 	 * @throws Exception
 	 */
-	private Data doParse(byte[] b, ControlProtocol cp, String dataCode) throws Exception {
+	private Data doParse(byte[] b, ControlProtocol cp, String dataCode,String rtuId) throws Exception {
 		Data d = new Data() ;
 
 		Data206_cd02 subD = new Data206_cd02() ;
@@ -46,7 +48,12 @@ public class LinkTest_02 extends ProtocolAbstract{
 		if(cp.hasDIVS){
 			index += 1 ;
 		}
-		subD.setFlag(new Integer((byte)b[index])) ;
+		subD.setFlag(new Integer((byte)b[index++])) ;
+		subD.setPwd(new UtilProtocol().byte2Hex(new byte[]{
+				b[index++],b[index]
+		},false).toUpperCase());
+		//更新设备操作密码
+		CmdPwdCache.singleInstance().pushPwd(rtuId,subD.getPwd());
 		
 		return d;
 	}
