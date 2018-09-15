@@ -73,8 +73,7 @@ public class MeterStatusManager {
 			if(monitorMeterStatusInterval%2 != 0){
 				monitorMeterStatusInterval ++ ;
 			}
-			new ACSchedularJob().addMinutelyJob(
-					MeterStatusConstant.JOB_REFRESHWATCHERNAME , 
+			new ACSchedularJob().addSecondlyJob(MeterStatusConstant.JOB_REFRESHWATCHERNAME , 
 					MeterStatusConstant.JOB_GROUPNAME , 
 					MonitorWatcher.class, 
 					null ,
