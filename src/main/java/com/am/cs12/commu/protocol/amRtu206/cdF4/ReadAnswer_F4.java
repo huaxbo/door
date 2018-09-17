@@ -66,7 +66,7 @@ public class ReadAnswer_F4 extends ProtocolAbstract{
 		}
 		n += 3;
 		
-		dd.setDoorState((b[n] & 0xFF) == 0xFF ? null : (b[n] & 0xFF));
+		dd.setDoorState((b[n] & 0x0F) == 0x0F ? null : (b[n] & 0x0F));
 		n++;
 		dd.setAngle((b[n] & 0xFF) == 0xFF ? null : (b[n] & 0xFF));
 		n++;	
