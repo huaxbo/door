@@ -61,14 +61,7 @@ public class DoorController {
     	
     	DoorVO vo = new DoorVO();
     	vo.setDtuId(dtuId);
-    	
-    	//时间有效校验
-    	String ymd = DateTime.yyyy_MM_dd();
-    	if(ymd.compareTo("2018-09-30") > 0){
-    		vo.setError("授权过期！");
-    		
-    		return vo;
-    	}
+    	    	
     	//缓存结果
     	if(flag == 0 && tp == 0){
         	Data cd = CmdRltCache.singleInstance().getRlt(dtuId);
