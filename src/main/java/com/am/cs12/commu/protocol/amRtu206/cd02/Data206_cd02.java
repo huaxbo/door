@@ -13,9 +13,9 @@ public class Data206_cd02 {
 	public String toString(){
 		String s = "\n" ;
 		s += "链路测试：" 
-		+ (this.flag==null?"":(this.flag.intValue() == (byte)Constant.Flag_f0_forCode2 
-				? "登录":(this.flag.intValue() == (byte)Constant.Flag_f1_forCode2 
-				? "退出登录":(this.flag.intValue() == (byte)Constant.Flag_f2_forCode2 
+		+ (this.flag == null ? "" :(this.flag.intValue() == (0xFF & Constant.Flag_f0_forCode2) 
+				? "登录":(this.flag.intValue() == (0xFF & Constant.Flag_f1_forCode2) 
+				? "退出登录":(this.flag.intValue() == (0xFF & Constant.Flag_f2_forCode2) 
 				? "在线保持":"不能识别"))))
 		 + ",操作密码=" + pwd;
 		

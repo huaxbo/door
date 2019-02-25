@@ -14,7 +14,6 @@ import com.am.cs12.commu.protocol.amRtu206.cdF1.Param206_cdF1;
 import com.am.cs12.commu.protocol.amRtu206.cdF2.Param206_cdF2;
 import com.am.cs12.commu.protocol.amRtu206.cdF3.Param206_cdF3;
 import com.am.cs12.commu.protocol.util.UtilProtocol;
-import com.am.util.DateTime;
 import com.automic.door.util.cmder.CmdPwdCache;
 import com.automic.door.util.cmder.CmdRlt;
 import com.automic.door.util.cmder.CmdRltCache;

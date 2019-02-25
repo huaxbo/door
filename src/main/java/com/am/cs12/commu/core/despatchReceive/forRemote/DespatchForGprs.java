@@ -89,7 +89,7 @@ public class DespatchForGprs {
 			HandleOnLine online = HandleOnLine.instance() ;
 			try {
 				String id = online.match(data) ;
-				if(id == null){
+				if(id == null || "".equals(id)){
 					log.error("严重错误，从上线数据中未得到 RTU ID ！" ) ;
 					isException = true ;
 				}else{

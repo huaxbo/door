@@ -48,7 +48,7 @@ public class LinkTest_02 extends ProtocolAbstract{
 		if(cp.hasDIVS){
 			index += 1 ;
 		}
-		subD.setFlag(new Integer((byte)b[index++])) ;
+		subD.setFlag(b[index++] & 0xFF) ;
 		subD.setPwd(new UtilProtocol().byte2Hex(new byte[]{
 				b[index++],b[index]
 		},false).toUpperCase());

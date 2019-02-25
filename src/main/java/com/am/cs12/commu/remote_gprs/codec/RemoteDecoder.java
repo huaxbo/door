@@ -47,7 +47,7 @@ public class RemoteDecoder extends CumulativeProtocolDecoder {
 			ProtocolBaseVO pbvo = ConfigCenter.instance().getProtocolBaseVO() ;
 			String id = rsm.getRtuId(session) ;
 			if(id != null){
-				RTUProtocolVO rtuPVO = new MeterHelp().getRtuProtocolVO(id) ;
+				/*RTUProtocolVO rtuPVO = new MeterHelp().getRtuProtocolVO(id) ;
 				if(rtuPVO != null){
 					Integer[] flag = prefixedDataAvailable(in, rtuPVO, pbvo.headMinLength, AmConstant.MAX_DATA_SIZE) ;
 					if(flag[0] == -1){
@@ -73,7 +73,9 @@ public class RemoteDecoder extends CumulativeProtocolDecoder {
 					log.error("严重错误，未能获得RTU ID为" + id + "测控器协议配置对象，从而不能进行断包或粘包检查，将数据直接放行。") ;
 					this.transData(in, null, out) ;
 					return true;
-				}
+				}*/
+				this.transData(in, null, out) ;
+				return true;
 			}else{
 				log.error("严重错误，会话管理器顾在此测控器的联接会话，但未能从会话管理器中获得测控终端ID，从而不能进行断包或粘包检查，将数据直接放行。") ;
 				this.transData(in, null, out) ;

@@ -129,7 +129,7 @@ public class Driver206 extends DriverMeter {
 					Data206_cd02 subD = (Data206_cd02) this.centerData
 							.getSubData();
 					Integer flag = subD.getFlag();
-					if (flag.intValue() == (byte) Constant.Flag_f0_forCode2) {
+					if (flag.intValue() == (0xFF & Constant.Flag_f0_forCode2)) {
 						// 上线（登录）
 						this.id = this.centerData.getId();
 						this.remoteData = new CommandProtocol206().confirm(
@@ -137,9 +137,9 @@ public class Driver206 extends DriverMeter {
 								this.getKeyPassword(this.id));
 						this.commandCode = Code206.cd_02;
 						action = action.add(action, Action.remoteConfirm);
-					} else if (flag.intValue() == (byte) Constant.Flag_f1_forCode2) {
+					} else if (flag.intValue() == (0xFF & Constant.Flag_f1_forCode2)) {
 						// 下线(退出登录)
-					} else if (flag.intValue() == (byte) Constant.Flag_f2_forCode2) {
+					} else if (flag.intValue() == (0xFF & Constant.Flag_f2_forCode2)) {
 						// 在线保持
 					}
 				}
